@@ -228,10 +228,11 @@ echo "document.getElementById('rfrom_div').style.display = 'none';";
 	</tr>
 </table>
 <br/>
-<br/>
+
 
 <input type="hidden" id="edit" name="edit" value="<?=intval($_GET['edit'])?>">
-
+<b>Note</b>: When you move your site to another domain, the new domain name will be reflected to all links automatically.
+	<br/><br/>
 <?php
 
 if(isset($_GET['add']))

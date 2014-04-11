@@ -52,10 +52,10 @@ function update_my_options($options)
 function get_my_options()
 {	
 	$options=get_option($this->get_option_gruop());
-	if(!$options)
+	if(!is_array($options))
 	{
 		add_option($this->get_option_gruop());
-		$options=get_option($this->get_option_gruop());
+		$options= array();
 	}
 	return $options;
 }

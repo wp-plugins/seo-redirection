@@ -3,19 +3,19 @@ Contributors: fakhris
 Donate link:http://www.clogica.com/donations.htm
 Tags: redirection,redirect,seo,404 redirection,301 seo r
 Requires at least: 3.0.1
-Tested up to: 3.8.2
+Tested up to: 3.8.1
 Stable tag: trunk
 
-By this plugin you can build redirections easily for your site including 301,302 or 307, you can also monitor 404 Error Pages and redirect them.
+By this plugin you can build redirections easily for your site including 301,302 or 307 redirect, you can also monitor 404 Error Pages and redirect them.
 
 == Description ==
 
-By this plugin you can build redirections easily for your site, you can set up all types of redirectoin including 301,302 or 307, you can also monitor 404 error pages and redirect them in one mouse click, we concentrated on simplicity in this plugin to meet all user levels.   
+By this plugin you can build redirections easily for your site, you can set up all types of redirectoin including 301,302 or 307 redirect, you can also monitor 404 error pages and redirect them in one mouse click, we concentrated on simplicity in this plugin to meet all user levels.   
   
 Features:  
 <ul>  
 <li>Build all types of redrection for your site 301,302 or 307 easily.</li>  
-<li>You can redirect folders and all it\'s content.</li>  
+<li>You can redirect folders and all it's content.</li>  
 <li>You can use regular expressions in redirections.</li>  
 <li>Supports wild card redirection.</li>  
 <li>Redirect posts and pages that published, draft or deleted from it\'s edit page directly.</li>  
@@ -23,6 +23,7 @@ Features:
 <li>Can redirect all 404 error pages to homepage or any page.</li>  
 <li>Redirections detailed history.</li>  
 <li>Advanced cotrol panel to control all functions of the plugin.</li>  
+<li>Reflect changes to all links when you move your site or change the domain name</li> 
 <li>Friendly GUI and easy to use.</li>  
 </ul>
 

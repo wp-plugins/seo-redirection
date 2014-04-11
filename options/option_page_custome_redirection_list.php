@@ -81,9 +81,5 @@ $grid->add_html_col("<div class='{db_redirect_to_type}_background_{db_enabled}'>
 	
 	$grid->run();
 	
-	
-	
-	
-	
-
 ?>
+<b>Note</b>: When you move your site to another domain, the new domain name will be reflected to all links automatically.

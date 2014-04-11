@@ -127,6 +127,7 @@ $options= $util->get_my_options();
 		$drop->add('3 months','90');
 		$drop->dropdown_print();
 		$drop->select($options['history_limit']);
+
 	?>
 
 	</td></tr>

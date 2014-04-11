@@ -11,6 +11,7 @@ function c_init_my_options()
 	$options=$util->get_my_options();
 	
 	$options['plugin_status']= '1';
+	$options['redirection_base']= site_url();
 	$options['redirect_control_panel']= '1';	
 	$options['show_redirect_box']= '1';
 	$options['reflect_modifications']= '1';

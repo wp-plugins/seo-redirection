@@ -4,7 +4,7 @@ Plugin Name: SEO Redirection
 Plugin URI: http://www.clogica.com
 Description: By this plugin you can manage all your website redirection types easily.
 Author: Fakhri Alsadi
-Version: 1.0
+Version: 2.0
 Author URI: http://www.clogica.com
 */
 
@@ -13,8 +13,9 @@ session_start();
 require_once ('common/controls.php');
 require_once ('custom/controls.php');
 
+define( 'WP_SEO_REDIRECTION_OPTIONS', 'wp-seo-redirection-group' );
 $util= new clogica_util();
-$util->set_option_gruop('wp-seo-redirection-group');
+$util->set_option_gruop(WP_SEO_REDIRECTION_OPTIONS);
 $util->set_plugin_folder(basename(dirname(__FILE__)));
 
 add_action('admin_menu', 'WPSR_admin_menu');
@@ -22,13 +23,15 @@ add_action('admin_head', 'WPSR_header_code');
 add_action('wp', 'WPSR_redirect');
 add_action( 'save_post', 'WPSR_get_post_redirection');
 add_action( 'add_meta_boxes', 'adding_WPSR_custom_meta_boxes', 10, 3 );
+add_action( 'admin_init', 'WPSR_check_redirection_base' );
 
 register_activation_hook( __FILE__ , 'WPSR_install' );
-register_uninstall_hook( __FILE__ , 'WPSR_uninstall' );
+register_uninstall_hook( __FILE__ , 'WPSR_uninstall' ); 
 
 wp_register_style( 'c_admin_css_common', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/common/' . "style.css" );
 wp_register_style( 'c_admin_css_custom', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/custom/' . "style.css" );
 //wp_enqueue_script('c_admin_js_validation', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/common/js/' . "jquery.validate.min.js", array('jquery'));
+
 /////////////////////////////////////////////////////////////////////////
 
 function adding_WPSR_custom_meta_boxes( $post_type, $post ) {
@@ -158,6 +161,32 @@ function redirect_check_click()
 
 //////////////////////////////////////////////////////////////////////////
 
+function  WPSR_check_redirection_base()
+{
+	global $wpdb,$table_prefix,$util ;	
+	$redirection_base = $util->get_option_value('redirection_base');
+	$site=site_url();
+	if($redirection_base !=$site && $redirection_base!='')
+	{
+		
+		$table_redirection= $table_prefix . 'WP_SEO_Redirection'; //redirect_from,redirect_to
+		$table_404_links = $table_prefix . 'WP_SEO_404_links'; // link,referrer
+		$table_log = $table_prefix . 'WP_SEO_Redirection_LOG'; //rfrom,rto,referrer
+		
+		$wpdb->query(" update $table_redirection set redirect_from=REPLACE(redirect_from, '$redirection_base', '$site'), redirect_to=REPLACE(redirect_to, '$redirection_base', '$site') ");
+		$wpdb->query(" update $table_404_links set referrer=REPLACE(referrer, '$redirection_base', '$site'), link=REPLACE(link, '$redirection_base', '$site')  ");
+		$wpdb->query(" update $table_log set referrer=REPLACE(referrer, '$redirection_base', '$site'), rfrom=REPLACE(rfrom, '$redirection_base', '$site') , rto=REPLACE(rto, '$redirection_base', '$site')");
+		
+		$msg="It seems that you moved your site from <b>$redirection_base</b> to <b>$site</b>, this has been reflected to redirection data!";
+		$msg = " update $table_redirection set redirect_from=REPLACE(redirect_from, $redirection_base, $site), redirect_to=REPLACE(redirect_to, $redirection_base, $site) ";
+		$util->warning_option_msg($msg);
+		
+		$util->update_option('redirection_base',$site);
+		
+	}
+}
+
+//------------------------------------------------------------------------
 
 function  WPSR_get_post_redirection($post_id)
 {
@@ -394,29 +423,53 @@ global $util;
 
 }
 
-
 //-----------------------------------------------------
 function WPSR_install(){
 global $wpdb,$table_prefix ;
-
-    $util= new clogica_util();
-    $util->set_option_gruop('wp-seo-redirection-group');
-    $util->set_plugin_folder(basename(dirname(__FILE__)));
-
-    $options=$util->get_my_options();
 	
-        $options['plugin_status']= '1';
-        $options['redirect_control_panel']= '1';	
-        $options['show_redirect_box']= '1';
-        $options['reflect_modifications']= '1';
-        $options['history_status']= '1';
-        $options['history_limit']= '30';
-        $options['p404_discovery_status']= '1';
-        $options['p404_redirect_to']= site_url();
-        $options['p404_status']= '2';
-        $options['keep_data']= '1';	
-    	$util->update_my_options($options);
-
+	$options=get_option(WP_SEO_REDIRECTION_OPTIONS);
+	if(!is_array($options))
+	{
+		add_option(WP_SEO_REDIRECTION_OPTIONS);
+		$options= array();
+	}
+	
+	
+	    if(!array_key_exists('plugin_status',$options))
+			$options['plugin_status']= '1';
+	
+		if(!array_key_exists('redirection_base',$options))
+       		$options['redirection_base']= site_url();
+	
+        if(!array_key_exists('redirect_control_panel',$options))
+			$options['redirect_control_panel']= '1';
+	
+        if(!array_key_exists('show_redirect_box',$options))
+			$options['show_redirect_box']= '1';
+	
+		if(!array_key_exists('reflect_modifications',$options))
+			$options['reflect_modifications']= '1';
+	
+        if(!array_key_exists('history_status',$options))
+			$options['history_status']= '1';
+	
+        if(!array_key_exists('history_limit',$options))
+			$options['history_limit']= '30';
+	
+        if(!array_key_exists('p404_discovery_status',$options))
+			$options['p404_discovery_status']= '1';
+	
+        if(!array_key_exists('p404_redirect_to',$options))
+			$options['p404_redirect_to']= site_url();
+	
+        if(!array_key_exists('p404_status',$options))
+			$options['p404_status']= '2';
+	
+        if(!array_key_exists('keep_data',$options))
+			$options['keep_data']= '1';	
+	
+    	update_option(WP_SEO_REDIRECTION_OPTIONS,$options);
+	
 
 	$table_name = $table_prefix . 'WP_SEO_Redirection';
 		if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
@@ -462,7 +515,6 @@ global $wpdb,$table_prefix ;
 		}
 		
 		
-	
 		$table_name = $table_prefix . 'WP_SEO_Redirection_LOG';
 		if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
 			$sql = "
@@ -512,9 +564,11 @@ function WPSR_uninstall(){
         $table_name = $table_prefix . 'WP_SEO_Redirection_LOG';
         $wpdb->query(" DROP TABLE `$table_name`  ");
         
-        $util->delete_my_options();
-    
+        
+		$util->delete_my_options();    
     }
+	
+	
 
 }
 
