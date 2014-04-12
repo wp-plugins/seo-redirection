@@ -27,15 +27,20 @@ By this plugin you can build redirections easily for your site, you can set up a
 </ul>
 
 <b>Plugin Usage:</b><hr/>
-<b>Redirecting Posts & Pages</b><br/>
-To redirect any post, there is two ways to do that as the following:<br/>
-1- Go to the post or page edit page, you will see the redirection box as the screenshot(1), input the destination URL and click the button save.<br/>
-2- Go to custom redirection tab, add a new page-to-page redirect, put the post full URL and the destination URL and click add.<br/>
-<br/><br/>
-<b>Folder Redirects</b></br>
+<b>Redirecting Posts & Pages</b>
+
+To redirect any post, there is two ways to do that as the following:
+
+- Go to the post or page edit page, you will see the redirection box as the screenshot(1), input the destination URL and click the button save.<br/>
+- Go to custom redirection tab, add a new page-to-page redirect, put the post full URL and the destination URL and click add.<br/>
+
+<b>Folder Redirects</b>
+
 To redirect a folder, go to custom redirection tab, add a new folder-to-page or folder-to-folder redirection, put the folder URL you want to redirect, choose the folder settings as needed, put the destination and then click the button add.<br/>
-<br/><br/>
-<b>404 Error Page Redirects</b></br>
+
+
+<b>404 Error Page Redirects</b>
+
 Go to Discvered 404 Error Pages tab, choose any 404 error page and choose 'Redirect' to create It's redirection, you can add it as a custom redirection if you know it's URL.<br/>
 
 == Installation ==
