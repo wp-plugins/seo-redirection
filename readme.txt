@@ -26,22 +26,23 @@ By this plugin you can build redirections easily for your site, you can set up a
 <li>Friendly GUI and easy to use.</li>  
 </ul>
 
-<b>Plugin Usage:</b><hr/>
-<b>Redirecting Posts & Pages</b>
+**Plugin Usage:**
+
+**Redirecting Posts & Pages**
 
 To redirect any post, there is two ways to do that as the following:
 
-- Go to the post or page edit page, you will see the redirection box as the screenshot(1), input the destination URL and click the button save.<br/>
-- Go to custom redirection tab, add a new page-to-page redirect, put the post full URL and the destination URL and click add.<br/>
+*   Go to the post or page edit page, you will see the redirection box as the screenshot(1), input the destination URL and click the button save.
+*   Go to custom redirection tab, add a new page-to-page redirect, put the post full URL and the destination URL and click add.
 
-<b>Folder Redirects</b>
+**Folder Redirects**
 
-To redirect a folder, go to custom redirection tab, add a new folder-to-page or folder-to-folder redirection, put the folder URL you want to redirect, choose the folder settings as needed, put the destination and then click the button add.<br/>
+To redirect a folder, go to custom redirection tab, add a new folder-to-page or folder-to-folder redirection, put the folder URL you want to redirect, choose the folder settings as needed, put the destination and then click the button add.
 
+**404 Error Page Redirects**
 
-<b>404 Error Page Redirects</b>
+Go to Discvered 404 Error Pages tab, choose any 404 error page and choose \'Redirect\' to create It\'s redirection, you can add it as a custom redirection if you know it\'s URL.
 
-Go to Discvered 404 Error Pages tab, choose any 404 error page and choose 'Redirect' to create It's redirection, you can add it as a custom redirection if you know it's URL.<br/>
 
 == Installation ==
 
@@ -73,4 +74,20 @@ To install SEO redirection there is two ways:
 8. All redirections history.
 9. Control panel options.
 
+== Frequently Asked Questions ==
 
+**1. How can I redirect posts & pages?**
+
+To redirect any post, there is two ways to do that as the following:
+
+*   Go to the post or page edit page, you will see the redirection box as the screenshot(1), input the destination URL and click the button save.
+*   Go to custom redirection tab, add a new page-to-page redirect, put the post full URL and the destination URL and click add.
+
+**2. How can I redirect foldres?**
+
+To redirect a folder, go to custom redirection tab, add a new folder-to-page or folder-to-folder redirection, put the folder URL you want to redirect, choose the folder settings as needed, put the destination and then click the button add.
+
+
+**3. How can I redirect 404 Error pages?**
+
+Go to Discvered 404 Error Pages tab, choose any 404 error page and choose \'Redirect\' to create It\'s redirection, you can add it as a custom redirection if you know it\'s URL.
