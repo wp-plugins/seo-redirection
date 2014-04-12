@@ -29,7 +29,22 @@ Features:
 
 == Installation ==
 
-Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
+To install SEO redirection there is three ways:
+	
+1. Using WordPress Control Panel:
+    - Go to the wordpress control panel and go to "Plugins" menu and press the button "Add New".
+    - Go to the tab "Upload" and choose the file "wp-login-security-and-history.zip", click the button "Upload" to get the file uploaded.
+    - Lockup the plugin, and click "Activate" to get it active.
+    - Go to the Options page and configure the plugin.
+
+2. Using FTP Transfer:
+	- Connect to your site using any FTP client.
+	- Extract the zip file of the plugin seo-redirection.zip.
+	- Go to the wordpress plugins folder folder wp-content/plugins/.
+	- Transfer the content of seo-redirection.zip to the folder wp-content/plugins/.
+	- Go to Plugins page in WordPress control panel.
+	- Lockup the plugin, and click "Activate" to get it active.
+	- Go to the Options page and configure the plugin.
 
 == Screenshots ==
 1. Redirection Box in edit page for posts and pages.
