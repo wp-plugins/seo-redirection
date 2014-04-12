@@ -12,8 +12,7 @@ By this plugin you can build redirections easily for your site including 301,302
 
 By this plugin you can build redirections easily for your site, you can set up all types of redirectoin including 301,302 or 307 redirect, you can also monitor 404 error pages and redirect them in one mouse click, we concentrated on simplicity in this plugin to meet all user levels.   
   
-Features:  
-<ul>  
+<b>Features: </b><hr/><ul>  
 <li>Build all types of redrection for your site 301,302 or 307 easily.</li>  
 <li>You can redirect folders and all it's content.</li>  
 <li>You can use regular expressions in redirections.</li>  
@@ -27,9 +26,21 @@ Features:
 <li>Friendly GUI and easy to use.</li>  
 </ul>
 
+<b>Plugin Usage:</b><hr/>
+<b>Redirecting Posts & Pages</b></br>
+To redirect any post, there is two ways to do that as the following:
+1- Go to the post or page edit page, you will see the redirection box as the screenshot(1), input the destination URL and click the button save.
+2- Go to custom redirection tab, add a new page-to-page redirect, put the post full URL and the destination URL and click add.
+<br/>
+<b>Folder Redirects</b></br>
+To redirect a folder, go to custom redirection tab, add a new folder-to-page or folder-to-folder redirection, put the folder URL you want to redirect, choose the folder settings as needed, put the destination and then click the button add.
+
+<b>404 Error Page Redirects</b></br>
+Go to Discvered 404 Error Pages tab, choose any 404 error page and choose 'Redirect' to create It's redirection, you can add it as a custom redirection if you know it's URL.
+
 == Installation ==
 
-To install SEO redirection there is three ways:
+To install SEO redirection there is two ways:
 	
 1. Using WordPress Control Panel:
     - Go to the wordpress control panel and go to "Plugins" menu and press the button "Add New".
