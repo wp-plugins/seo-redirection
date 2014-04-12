@@ -1,7 +1,7 @@
 === SEO Redirection ===
 Contributors: fakhris 
 Donate link:http://www.clogica.com/donations.htm
-Tags: redirection,redirect,seo,404 redirection,301 seo r
+Tags: redirection,redirect,seo,404 redirection,301 seo redirect,move folder,move site,redirected
 Requires at least: 3.0.1
 Tested up to: 3.8.1
 Stable tag: trunk
