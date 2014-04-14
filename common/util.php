@@ -406,19 +406,15 @@ $plugins=get_option( 'active_plugins' );
 }
 	
 //---------------------------------------------------------------
-	
-function str_startsWith($haystack, $needle)
+		
+function regex_prepare($string)
 {
-    return $needle === "" || strpos($haystack, $needle) === 0;
-}
-	
-//---------------------------------------------------------------
-	
-function str_endsWith($haystack, $needle)
-{
-return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
-}
 
+ $from= array('.', '+', '*', '?','[','^',']','$','(',')','{','}','=','!','<','>','|',':','-',')','/', '\\');
+ $to= array('\\.', '\\+', '\\*', '\\?','\\[','\\^','\\]','\\$','\\(','\\)','\\{','\\}','\\=','\\!','\\<','\\>','\\|','\\:','\\-','\\)','\\/','\\\\');
+ return str_replace($from,$to,$string);
+ 
+}
 	
  
 }}

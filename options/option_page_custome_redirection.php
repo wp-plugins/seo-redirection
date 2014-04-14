@@ -32,22 +32,22 @@ if($redirect_from_type =='Folder')
 	{
 		if($redirect_from_subfolders ==0)
 		{
-			$regex= '^'. $redirect_from . '.*'; ;
+			$regex= '^'. $util->regex_prepare($redirect_from) . '.*'; ;
 		}
 		else
 		{
-			$regex= '^'. $redirect_from . '[^/]*$';
+			$regex= '^'. $util->regex_prepare($redirect_from) . '[^/]*$';
 		}
 	}
 	else if($redirect_from_folder_settings==3)
 	{
 		if($redirect_from_subfolders ==0)
 		{
-			$regex= '^'. $redirect_from . '.+';
+			$regex= '^'. $util->regex_prepare($redirect_from) . '.+';
 		}
 		else
 		{
-			$regex= '^'. $redirect_from . '[^/]+$';			
+			$regex= '^'. $util->regex_prepare($redirect_from) . '[^/]+$';			
 		}
 	}
 

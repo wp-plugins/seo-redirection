@@ -6,7 +6,7 @@ Requires at least: 3.0.1
 Tested up to: 3.8.1
 Stable tag: trunk
 
-By this plugin you can build redirections easily for your site including 301,302 or 307 redirect, you can also monitor 404 Error Pages and redirect them.
+By this plugin you can build 301,302 or 307 redirectios easily for your site, you can also monitor 404 Error Pages and redirect them.
 
 == Description ==
 

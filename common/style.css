@@ -12,6 +12,7 @@ float:left;
 list-style:none;
 height:32px;
 width:100%;
+min-width: 820px;
 border-radius:8px 0 -50px 0;
 margin:0;
 padding:0;
@@ -66,6 +67,7 @@ overflow:hidden;
 clear:both;
 float:left;
 width:100%;
+min-width: 820px;
 background:#fff;
 -webkit-border-radius:8px;
 -webkit-border-top-left-radius:0;
@@ -97,8 +99,8 @@ padding:20px;
 
 
 .cfrom{border:0px;border-collapse:collapse;font-family:Tahoma;font-size:10pt}
-.cform td{padding:3px}
-.cform tbody td.label{width:130px;}
+.cform td{padding:3px; font-family: tahoma; font-size: 12px;}
+.cform tbody td.label{width:110px;}
 .cform tbody td.labelx{width:160px;}
 .cform tbody td.labelxx{width:200px;}
 .cform tbody tr:nth-child(odd){background:#FDFDFD}

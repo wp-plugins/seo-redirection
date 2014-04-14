@@ -63,7 +63,7 @@ var sword = document.getElementById('search').value;
 	$grid->set_col_attr(2,'width','20px','header');
 	$grid->set_order(" ID desc ");
 	
-	$grid->set_filter("url_type!=1");
+	$grid->set_filter("url_type=2");
 	
 	if($_GET['search']!='')
 	{
