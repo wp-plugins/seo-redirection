@@ -23,7 +23,7 @@ add_action('admin_menu', 'WPSR_admin_menu');
 add_action('wp', 'WPSR_redirect');
 add_action( 'save_post', 'WPSR_get_post_redirection');
 add_action( 'add_meta_boxes', 'adding_WPSR_custom_meta_boxes', 10, 3 );
-add_action( 'admin_init', 'WPSR_check_redirection_base' );
+add_action( 'admin_head', 'WPSR_check_redirection_base' );
 
 register_activation_hook( __FILE__ , 'WPSR_install' );
 register_uninstall_hook( __FILE__ , 'WPSR_uninstall' ); 
@@ -184,7 +184,74 @@ function  WPSR_check_redirection_base()
 		$util->update_option('redirection_base',$site);
 		
 	}
+	
+	WPSR_check_default_permalink();
 }
+
+//--------------------------------------------------------------------------------------------
+
+
+    function WPSR_check_default_permalink()
+    {
+       global $util,$wp_rewrite;
+       
+       $file= get_home_path() . "/.htaccess";
+       $filestr ="";
+       $begin_marker = "# BEGIN WordPress";
+       $end_marker = "# END WordPress";
+       $content="ErrorDocument 404 /index.php?error=404";
+       $findword = "ErrorDocument 404";
+       
+       if($wp_rewrite->permalink_structure =='')
+       {
+        
+        if(file_exists($file)){
+            
+           $f = @fopen( $file, 'r+' );
+           $filestr = @fread($f , filesize($file)); 
+           
+           if (strpos($filestr , $findword) === false)
+            {
+               if (strpos($filestr , $begin_marker) === false)
+                    {
+                        $filestr = $begin_marker . PHP_EOL . $content . PHP_EOL . $end_marker . PHP_EOL . $filestr ;
+                        fwrite($f ,  $filestr); 
+                        fclose($f);
+                    }
+                    else
+                    {
+                        fclose($f);
+                        $f = fopen($file, "w");
+                        $n=strpos($filestr , $begin_marker) + strlen('# BEGIN WordPress');;
+                        $div1= substr($filestr,0,$n);
+                        $div2= substr($filestr,($n+1),strlen($filestr));
+                        $filestr = $div1 . PHP_EOL . $content . PHP_EOL . $div2;
+                        fwrite($f ,  $filestr); 
+                        fclose($f);
+                        
+                    }
+            }
+            
+        }else
+        {
+          
+          $filestr = $begin_marker . PHP_EOL . $content . PHP_EOL . $end_marker ;
+          if($f = @fopen( $file, 'w' )){
+            fwrite($f ,  $filestr); 
+            fclose($f);
+            $util->warning_option_msg('SEO Redirection: The <b>.htaccess</b> has been created!');
+            }
+            else
+            {
+            $util->warning_option_msg('SEO Redirection: Could not create the file <b>.htaccess</b>!');
+            }
+        }
+       
+       }
+       
+    }
+
+//--------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
 
