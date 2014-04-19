@@ -30,7 +30,7 @@ By this plugin you can build redirections easily for your site, you can set up a
 
 **Redirecting Posts & Pages**
 
-To redirect any post, there is two ways to do that as the following:
+To redirect any post, there is two ways to do that using this plugin as the following:
 
 *   Go to the post or page edit page, you will see the redirection box as the screenshot(1), input the destination URL and click the button save.
 *   Go to custom redirection tab, add a new page-to-page redirect, put the post full URL and the destination URL and click add.
