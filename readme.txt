@@ -1,7 +1,7 @@
 === SEO Redirection Plugin ===
 Contributors: fakhris 
 Donate link:http://www.clogica.com/donations.htm
-Tags: redirection,redirect,seo,404 redirection,301 seo redirect,move folder,move site,redirected
+Tags: redirection,redirect,seo,404 redirection,301 seo redirect,move folder,move site,redirected,plugin,redirect plugin,Quick Redirect Plugin,Quick post Redirect
 Requires at least: 3.0.1
 Tested up to: 3.9
 Stable tag: trunk
