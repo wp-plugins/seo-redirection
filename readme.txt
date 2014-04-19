@@ -1,9 +1,9 @@
-=== SEO Redirection ===
+=== SEO Redirection Plugin ===
 Contributors: fakhris 
 Donate link:http://www.clogica.com/donations.htm
 Tags: redirection,redirect,seo,404 redirection,301 seo redirect,move folder,move site,redirected
 Requires at least: 3.0.1
-Tested up to: 3.8.3
+Tested up to: 3.9
 Stable tag: trunk
 
 By this plugin you can build 301,302 or 307 redirectios easily for your site, you can also monitor 404 Error Pages and redirect them.
