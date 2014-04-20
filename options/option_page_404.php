@@ -4,9 +4,10 @@ global $wpdb,$table_prefix,$util;
 
 if($_POST['redirect_to']!='')
 	{
-		$newoptions['p404_redirect_to']=$_POST['redirect_to'];
-		$newoptions['p404_status']=$_POST['p404_status'];
-		$util->update_my_options($newoptions);
+		 global $util;	
+		
+		$util->update_post_option('p404_status');
+		$util->update_option('p404_redirect_to',$_POST['redirect_to']);	
 		$util->success_option_msg('Options Saved!');	
 		
 		if($util->there_is_cache()!='') 
