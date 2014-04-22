@@ -260,7 +260,7 @@ var rto=document.getElementById('redirect_to').value;
 	{
 		if(document.getElementById('redirect_from_type').value !='Regex')
 		{
-			if(rfrom.substring(0,7)!='http://')
+			if(rfrom.substring(0,4)!='http')
 			{
 				alert("'Redirect From' must be a full URL starting with 'http://'!");
 				document.getElementById('redirect_from').focus();
@@ -280,7 +280,7 @@ var rto=document.getElementById('redirect_to').value;
 	}else
 	{
 		
-		if(rto.substring(0,7)!='http://')
+		if(rto.substring(0,4)!='http')
 		{
 			alert("'Redirect To' must be a full URL starting with 'http://'!");
 			document.getElementById('redirect_to').focus();

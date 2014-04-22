@@ -1,6 +1,4 @@
 <?php
-
-
 global $wpdb,$table_prefix,$util;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 $table_name_404 = $table_prefix . 'WP_SEO_404_links';
@@ -118,7 +116,6 @@ if($util->there_is_cache()!='')
 	
 }
 
-
   if(isset($_GET['add']) || isset($_GET['edit']) )
   {
   	include "option_page_custome_redirection_add_update.php";
@@ -130,3 +127,5 @@ if($util->there_is_cache()!='')
 
 
 ?>
+
+

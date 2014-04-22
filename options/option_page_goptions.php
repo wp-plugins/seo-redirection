@@ -1,4 +1,4 @@
-<?
+<?php
 global $util;
 
 if(isset($_POST)){

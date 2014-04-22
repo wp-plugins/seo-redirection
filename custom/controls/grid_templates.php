@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 $template['link']['content'] = " we can see {param1} here {param2} my {db_OS}";
