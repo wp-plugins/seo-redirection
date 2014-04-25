@@ -19,6 +19,7 @@ var $ignore_parameters='';
 
 	function phptab($parameter='tab')
 	{
+		$this->tabs = array();
 		$this->$parameter = $parameter;
 	}
 	
@@ -27,10 +28,7 @@ var $ignore_parameters='';
 	function add_file_tab($num, $title, $content, $type )
 	{
 	  $index=$this->tabs_count();
-	  	$this->tabs[$index]['num']=$num;
-		$this->tabs[$index]['title']=$title;
-		$this->tabs[$index]['content']=$content;
-		$this->tabs[$index]['type']=$type;
+		$this->tabs[$index] = array('num' => $num , 'title'=> $title, 'content'=> $content, 'type' => $type );
 
 	}	
 

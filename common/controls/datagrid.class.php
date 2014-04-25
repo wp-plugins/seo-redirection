@@ -40,10 +40,21 @@ class datagrid
 	
 	public function datagrid($data_source='',$filter='')
 	{
+		$this->cols = array();
+		$this->ext_fields = array();
+		$this->table = array();
+		$this->header = array();
+		$this->body = array();
+		$this->footer = array();
+		
 		$this->pagination = new pagination($data_source,$filter);
 		$this->set_data_source($data_source);
 		$this->set_filter($filter);
 		$this->set_table_attr('class','grid');
+		
+
+		
+		
 	}
 	
 
@@ -132,7 +143,7 @@ class datagrid
 
 	public function add_data_col($field, $title='')
 	{
-		$newindex=count($this->cols);
+		$newindex=count($this->cols);	
 		$this->cols[$newindex]['field']= $field;
 		$this->cols[$newindex]['title']= $title;
 	}
@@ -141,7 +152,7 @@ class datagrid
 
 	public function add_html_col($html, $title='')
 	{
-		$newindex=count($this->cols);
+		$newindex=count($this->cols);	
 		$this->cols[$newindex]['html']= $html;
 		$this->cols[$newindex]['title']= $title;
 	}
@@ -286,6 +297,7 @@ class datagrid
 	public function set_table_attr($attr,$val)
 	{
 		$this->table[$attr]=$val;
+		
 	}
 	
 //-----------------------------------------------------------------
@@ -333,7 +345,7 @@ class datagrid
 		if($this->get_data_source() == '' )
 			die("No Data Source Specified!");
 		
-		$title="";
+		$title= array();
 		for($i=0;$i<count($this->cols);$i++)
 		{
 			$title[$i]=$this->cols[$i]['title'];
@@ -378,7 +390,7 @@ class datagrid
 		
 		extract($ar, EXTR_PREFIX_ALL, "db"); 
 				
-			$row="";
+			$row= array();
 			for($i=0;$i<count($this->cols);$i++)
 			{
 				if($this->cols[$i]['field']!='')
