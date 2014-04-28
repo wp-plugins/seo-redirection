@@ -2,7 +2,7 @@
 
 global $wpdb,$table_prefix,$util;
 
-if($_POST['redirect_to']!='')
+if($util->post('redirect_to')!='')
 	{
 		 global $util;	
 		
@@ -53,7 +53,7 @@ var sword = document.getElementById('search').value;
 <table border="0" width="100%">
 	<tr>
 		<td align="left">
-		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?=$_GET['search']?>" size="40">
+		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?=$util->get('search')?>" size="40">
 		<a onclick="go_search()" href="#"><div class="search_link">Search</div></a> 
 		<a href="<?=$util->get_current_parameters('search')?>"><div class="see_link">Show All</div></a>
 		</td>
@@ -71,9 +71,9 @@ var sword = document.getElementById('search').value;
 	$grid->add_select_field('referrer');	
 	$grid->set_order(" ID desc ");
 	
-	if($_GET['search']!='')
+	if($util->get('search')!='')
 	{
-		$search=$_GET['search'];
+		$search=$util->get('search');
 		
 		$grid->set_filter(" link like '%%$search%%' or ctime like '%%$search%%'
 		or referrer like '%%$search%%'   or country like '%%$search%%'   or ip like '%%$search%%'

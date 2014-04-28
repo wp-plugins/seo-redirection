@@ -3,47 +3,47 @@ global $util;
 
 if(isset($_POST)){
 
-if($_POST['reset_all_options']!='')
+if($util->post('reset_all_options')!='')
 {
 	c_init_my_options();
 	$util->success_option_msg('All Options Restored to Defaults');
 
-}else if($_POST['Save_general_options']!='')
+}else if($util->post('Save_general_options')!='')
 {
 	c_save_redirection_general_options();
 	$util->success_option_msg('General Options Saved!');
 
-}else if($_POST['save_history_options']!='')
+}else if($util->post('save_history_options')!='')
 {
 	c_save_redirection_history_options();
 	$util->success_option_msg('History Options Saved!');
 }
-else if($_POST['clear_history']!='')
+else if($util->post('clear_history')!='')
 {
 	c_clear_redirection_history();
 	$util->success_option_msg('History Cleared!');
 }
-else if($_POST['save_404_options']!='')
+else if($util->post('save_404_options')!='')
 {
 	c_save_404_redirection_options();
 	$util->success_option_msg('404 Redirection Options Saved!');
 }
-else if($_POST['clear_all_404']!='')
+else if($util->post('clear_all_404')!='')
 {
 	c_clear_all_404();
 	$util->success_option_msg('All Discovered 404 Pages Cleared!');
 }
-else if($_POST['save_data_options']!='')
+else if($util->post('save_data_options')!='')
 {
 	c_save_keep_data();
 	$util->success_option_msg('Data Options Saved!');
 }
-else if($_POST['optimize_tables']!='')
+else if($util->post('optimize_tables')!='')
 {
 	c_optimize_tables();
 	$util->success_option_msg('Data Tables Optimized!');
 }
-else if($_POST['save_all_options'])
+else if($util->post('save_all_options'))
 {
 	c_save_redirection_general_options();
 	c_save_redirection_history_options();
@@ -127,7 +127,6 @@ $options= $util->get_my_options();
 		$drop->add('3 months','90');
 		$drop->dropdown_print();
 		$drop->select($options['history_limit']);
-
 	?>
 
 	</td></tr>

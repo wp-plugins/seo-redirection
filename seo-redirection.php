@@ -4,7 +4,7 @@ Plugin Name: SEO Redirection
 Plugin URI: http://www.clogica.com
 Description: By this plugin you can manage all your website redirection types easily.
 Author: Fakhri Alsadi
-Version: 2.0
+Version: 2.1
 Author URI: http://www.clogica.com
 */
 
@@ -76,10 +76,16 @@ $table_name = $table_prefix . 'WP_SEO_Redirection';
 		}
 
 		$postID=$post->ID;
+		
+
 
 $theurl = $wpdb->get_row(" select redirect_to,redirect_from from $table_name where postID='$postID'  ");
 
-if($theurl->redirect_to !='' && $theurl->redirect_from != $permalink )
+$urlredirect_to='';
+   if($wpdb->num_rows>0)
+     $urlredirect_to=$theurl->redirect_to;
+
+if($urlredirect_to !='' && $theurl->redirect_from != $permalink )
 	{
 	// the post_name field changed!
 	$wpdb->query(" update $table_name set redirect_from='$permalink'  where postID='$postID' ");
@@ -100,7 +106,7 @@ echo '
 <div id="redirect_frame">
 <table border="0" width="100%" cellpadding="2">
 	<tr>
-		<td><b>Redirect to</b> <input type="text" name="wp_seo_redirection_url" id="wp_seo_redirection_url" value="' . $theurl->redirect_to .  '" size="62"></td>
+		<td><b>Redirect to</b> <input type="text" name="wp_seo_redirection_url" id="wp_seo_redirection_url" value="' . $urlredirect_to .  '" size="62"></td>
 	</tr>
 	<tr>
 		<td>
@@ -113,7 +119,8 @@ echo '
 		</ul>
 		</td>
 	</tr>
-</table></div>';
+</table>
+</div>';
 
 echo "
 
@@ -143,7 +150,7 @@ function redirect_check_click()
 </script>
 ";
 
-	if($theurl->redirect_to =='')
+	if($urlredirect_to =='')
 	echo "<script type='text/javascript'>WSR_check_status(0);</script>";
 	else
 	echo "<script type='text/javascript'>WSR_check_status(1);</script>";
@@ -257,8 +264,18 @@ function  WPSR_get_post_redirection($post_id)
 global $wpdb,$table_prefix ;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 
-$redirect_from=$_POST['wp_seo_redirection_url_from'];
-$redirect_to=$_POST['wp_seo_redirection_url'];
+// Autosave
+if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+        return;
+// AJAX
+if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) 
+        return;
+// Post revision
+if ( false !== wp_is_post_revision( $post_id ) )
+        return;
+
+$redirect_from=$util->post('wp_seo_redirection_url_from');
+$redirect_to=$util->post('wp_seo_redirection_url');
 
 if($redirect_to!=''){
 
@@ -292,15 +309,15 @@ function WPSR_log_404_redirection($link)
 {
 	global $wpdb,$table_prefix,$util ;
 	$table_name = $table_prefix . 'WP_SEO_404_links';
-
-	$referrer=mysql_real_escape_string($_SERVER['HTTP_REFERER']);
+    
+	$referrer=$util->get_ref();
 	$ip=$util->get_visitor_IP();
 	$country=$util->get_visitor_country();
 	$os=$util->get_visitor_OS();
 	$browser=$util->get_visitor_Browser();
 
 	if($os!='Unknown' || $browser!='Unknown'){
-		$wpdb->query(" insert into $table_name(ctime,link,referrer,ip,country,os,browser) values(NOW(),'$link','$referrer','$ip','$country','$os','$browser') ");
+		$wpdb->query(" insert IGNORE into $table_name(ctime,link,referrer,ip,country,os,browser) values(NOW(),'$link','$referrer','$ip','$country','$os','$browser') ");
 	}
 }
 
@@ -312,7 +329,7 @@ function WPSR_log_redirection_history($rID,$postID, $rfrom, $rto, $rtype,$rsrc)
 	global $wpdb,$table_prefix,$util ;
 	$table_name = $table_prefix . 'WP_SEO_Redirection_LOG';
 
-	$referrer=mysql_real_escape_string($_SERVER['HTTP_REFERER']);
+	$referrer=$util->get_ref();
 	$ip=$util->get_visitor_IP();
 	$country=$util->get_visitor_country();
 	$os=$util->get_visitor_OS();
@@ -330,9 +347,13 @@ function WPSR_log_redirection_history($rID,$postID, $rfrom, $rto, $rtype,$rsrc)
 //-------------------------------------------------------------
 
 function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
-{ global $util;
+{ 
+    global $util;
+    
+        if($redirect_to == $redirect_from)
+        return 0;
 
-	if($obj->redirect_to_type=='Folder' && $obj->redirect_to_folder_settings=='2' ){
+	if(is_object($obj) && $obj->redirect_to_type=='Folder' && $obj->redirect_to_folder_settings=='2' ){
 
 		if($obj->redirect_from_type=='Folder')
 		{
@@ -358,7 +379,7 @@ function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
 	$rsrc='404';
 	$postID=0;
 
-	if($obj!='')
+	if(is_object($obj))
 	{
 		$rID=$obj->ID;
 		$postID=$obj->postID;
@@ -409,17 +430,12 @@ if (($util->get_option_value('redirect_control_panel')!='1') || ($util->get_opti
 
 $theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex='' and redirect_from='$permalink'  ");
 
-	if($theurl->redirect_to!=''){
-
+	if($wpdb->num_rows>0 && $theurl->redirect_to!=''){
     	WPSR_make_redirect($theurl->redirect_to,$theurl->redirect_type,$permalink,$theurl);
-
 	}
 
-
 $theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex<>'' and '$permalink' regexp regex order by LENGTH(regex) desc ");
-
-	if($theurl->redirect_to!=''){
-
+	if($wpdb->num_rows>0 && $theurl->redirect_to!=''){
 	WPSR_make_redirect($theurl->redirect_to,$theurl->redirect_type,$permalink,$theurl);
 	}
 
@@ -482,8 +498,20 @@ global $util;
 	$mytabs->add_file_tab('history','Redirection History','option_page_history.php','file');
 	$mytabs->add_file_tab('goptions','Options','option_page_goptions.php','file');
 	$mytabs->run();
-
-	echo '</div>';
+    
+    
+	echo "<div class='procontainer'><div class='ad'>";
+	
+	$propath = $util->get_plugin_url('custom/images/buttons.png');
+	
+	echo '<map name="proFPMap0">
+    <area target="_blank" href="http://codecanyon.net/item/seo-redirection-pro/7596396?ref=fakhri" shape="rect" coords="7, 5, 113, 44">
+    <area target="_blank" href="http://codecanyon.net/theme_previews/7596396-seo-redirection-pro?url_name=seo-redirection-pro&ref=fakhri" shape="rect" coords="119, 5, 228, 44">
+    <area target="_blank" href="http://www.clogica.com/downloads/documentation/documentation.zip" shape="rect" coords="232, 7, 352, 42">
+    </map>
+    <img border="0" src="' . $propath . '" width="360" height="51" usemap="#proFPMap0">';
+	
+	echo "</div></div></div>";
 
 }
 

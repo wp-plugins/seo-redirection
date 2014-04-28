@@ -84,8 +84,11 @@ global $wpdb;
 		if($this->pages_count ==0)
 		$this->pages_count=1;
 		
-	
+	    if(array_key_exists($this->parameter,$_GET))
 		$this->current_page = intval($_GET[$this->parameter]);
+		else
+		$this->current_page =1;
+		
 		if($this->current_page<1)
 		$this->current_page=1;
 		else if($this->current_page > $this->pages_count)
@@ -328,10 +331,12 @@ private function get_current_parameters($remove_parameter="")
 		$qry = '?' . $_SERVER['QUERY_STRING']; 
 		if($remove_parameter!='')
 		{
-			$string_remove = '&' . $remove_parameter . "=" . $_GET[$remove_parameter];
-			$qry=str_replace($string_remove,"",$qry);
-			$string_remove = '?' . $remove_parameter . "=" . $_GET[$remove_parameter];
-			$qry=str_replace($string_remove,"",$qry);
+			if(array_key_exists($remove_parameter,$_GET)){
+    			$string_remove = '&' . $remove_parameter . "=" . $_GET[$remove_parameter];
+    			$qry=str_replace($string_remove,"",$qry);
+    			$string_remove = '?' . $remove_parameter . "=" . $_GET[$remove_parameter];
+    			$qry=str_replace($string_remove,"",$qry);
+			}
 		}
 		
 		return $qry;

@@ -8,11 +8,12 @@ Contact: www.clogica.com   info@clogica.com    mobile: +972599322252
 if(!class_exists('clogica_util')){
 class clogica_util{
 
-var $option_group_name='clogica_option_group';
-var $plugin_folder='plugin_folder_name'; 
+private $option_group_name='clogica_option_group';
+private $plugin_folder='plugin_folder_name'; 
+public $mytabs;
 
 
-	public function get($key,$escape=0)
+public function get($key,$escape=0)
 {
 	if(array_key_exists($key,$_GET))
 	{
@@ -50,23 +51,38 @@ public function post($key,$escape=0)
 	}
 }
 
-//----------------------------------------------------
-	
-function set_option_gruop($option_group_name)
+
+//---------------------------------------------------- 
+
+public function get_ref()
+{
+	if(array_key_exists('HTTP_REFERER',$_SERVER))
+	{
+	      return mysql_real_escape_string($_SERVER['HTTP_REFERER']); 
+	}
+	else
+	{
+	    return '';
+	}
+}
+
+//---------------------------------------------------- 
+
+public function set_option_gruop($option_group_name)
 {
 	$this->option_group_name=$option_group_name;
 }
 
 //---------------------------------------------------- 
 
-function get_option_gruop()
+public function get_option_gruop()
 {
 	return $this->option_group_name;
 }
 
 //----------------------------------------------------
 
-function set_plugin_folder($folder)
+public function set_plugin_folder($folder)
 {
 	$this->plugin_folder=$folder;
 }
@@ -74,7 +90,7 @@ function set_plugin_folder($folder)
 
 //----------------------------------------------------
 
-function get_plugin_folder()
+public function get_plugin_folder()
 {
 	return $this->plugin_folder;
 }
@@ -82,14 +98,14 @@ function get_plugin_folder()
 //---------------------------------------------------- 
 
 
-function update_my_options($options)
+public function update_my_options($options)
 {	
 	update_option($this->get_option_gruop(),$options);
 }
 
 //---------------------------------------------------- 
 
-function get_my_options()
+public function get_my_options()
 {	
 	$options=get_option($this->get_option_gruop());
 	if(!is_array($options))
@@ -102,7 +118,7 @@ function get_my_options()
 
 //---------------------------------------------------
 
-function get_option_value($key)
+public function get_option_value($key)
 {
 	$options=$this->get_my_options();
 	return $options[$key];	
@@ -110,7 +126,7 @@ function get_option_value($key)
 //---------------------------------------------------- 
 
 
-function update_option($key,$value)
+public function update_option($key,$value)
 {	
 	$options=$this->get_my_options();
 	$options[$key]=$value;
@@ -121,10 +137,10 @@ function update_option($key,$value)
 //---------------------------------------------------- 
 
 
-function update_post_option($key)
+public function update_post_option($key)
 {	
 	$options=$this->get_my_options();
-	$options[$key]=intval($_POST[$key]);
+	$options[$key]=intval($this->post($key));
 	$this->update_my_options($options);				
 }
 
@@ -132,7 +148,7 @@ function update_post_option($key)
 //---------------------------------------------------- 
 
 
-function delete_my_options()
+public function delete_my_options()
 {	
     delete_option($this->get_option_gruop());
 }
@@ -140,7 +156,7 @@ function delete_my_options()
 
 //----------------------------------------------------
 
-function get_current_URL()
+public function get_current_URL()
 {
 	$prt = $_SERVER['SERVER_PORT'];
 	$sname = $_SERVER['SERVER_NAME'];
@@ -201,10 +217,9 @@ public function get_current_parameters($remove_parameter="")
 } 
 
 
-
 //---------------------------------------------------------------
 
-	function get_plugin_path($folder='')
+public function get_plugin_path($folder='')
 	{
 		return WP_PLUGIN_DIR . '/' .  $this->get_plugin_folder() . '/' . $folder;
 	}
@@ -212,7 +227,7 @@ public function get_current_parameters($remove_parameter="")
 //-----------------------------------------------------
 
 
-function get_plugin_url($url='')
+public function get_plugin_url($url='')
 {
 	return WP_PLUGIN_URL  . '/' .  $this->get_plugin_folder() . '/' . $url;
 }
@@ -220,7 +235,7 @@ function get_plugin_url($url='')
 
 //----------------------------------------------------
 
-function get_visitor_IP()
+public function get_visitor_IP()
 {
 	$ipaddress = $_SERVER['REMOTE_ADDR'];
 	
@@ -236,7 +251,7 @@ function get_visitor_IP()
 //----------------------------------------------------
 
 
-function get_visitor_OS()
+public function get_visitor_OS()
 {
 
 $userAgent= $_SERVER['HTTP_USER_AGENT'];
@@ -260,13 +275,13 @@ $userAgent= $_SERVER['HTTP_USER_AGENT'];
 		'Macintosh'=>'(Mac_PowerPC)|(Macintosh)',
 		'QNX'=>'QNX',
 		'BeOS'=>'BeOS',
-		'OS/2'=>'OS/2',
-		'SearchBot'=>'(nuhk)|(Googlebot)|(Yammybot)|(Openbot)|(Slurp/cat)|(msnbot)|(ia_archiver)'
+		'OS/2'=>'OS\/2',
+		'SearchBot'=>'(nuhk)|(Googlebot)|(Yammybot)|(Openbot)|(Slurp\/cat)|(msnbot)|(ia_archiver)'
 	);
 
 	foreach($oses as $os=>$pattern){ 
 
-		if(eregi($pattern, $userAgent)) { 
+		if(preg_match('/'.$pattern. '/i', $userAgent)) { 
 			return $os; 
 		}
 	}
@@ -316,7 +331,7 @@ $userAgent= $_SERVER['HTTP_USER_AGENT'];
 
 //-----------------------------------------------------------------
 
-function get_visitor_Browser()
+public function get_visitor_Browser()
 {
 
 $u_agent= $_SERVER['HTTP_USER_AGENT'];
@@ -362,7 +377,7 @@ if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent))
 
 //----------------------------------------------------
 
-function get_visitor_country()
+public function get_visitor_country()
 {
     $client  = @$_SERVER['HTTP_CLIENT_IP'];
     $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
@@ -393,46 +408,91 @@ function get_visitor_country()
 
 //---------------------------------------------------- 
 
-function option_msg($msg)
+public function option_msg($msg,$out='echo')
 {	
-	echo '<div id="message" class="updated"><p>' . $msg . '</p></div>';		
+	$msg = '<div id="message" class="updated"><p>' . $msg . '</p></div>';
+	if($out=='echo')
+	echo $msg;	
+	elseif($out=='push')
+	$this->push_msg($msg);
 }
 
 //---------------------------------------------------- 
 
 
-function info_option_msg($msg)
+public function info_option_msg($msg,$out='echo')
 {	
-	echo '<div id="message" class="updated"><p><div class="info_icon"></div> ' . $msg . '</p></div>';		
+
+    $msg = '<div id="message" class="updated"><p><div class="info_icon"></div> ' . $msg . '</p></div>';
+	if($out=='echo')
+	echo $msg;	
+	elseif($out=='push')
+	$this->push_msg($msg);
+	
+
 }
 
 //---------------------------------------------------- 
 
 
-function warning_option_msg($msg) 
+public function warning_option_msg($msg,$out='echo') 
 {	
-	echo '<div id="message" class="error"><p><div class="warning_icon"></div> ' . $msg . '</p></div>';		
+	$msg = '<div id="message" class="error"><p><div class="warning_icon"></div> ' . $msg . '</p></div>';		
+	if($out=='echo')
+	echo $msg;	
+	elseif($out=='push')
+	$this->push_msg($msg);
+	
+	
 }
 
 //---------------------------------------------------- 
 
-function success_option_msg($msg)
+public function success_option_msg($msg,$out='echo')
 {	
-	echo '<div id="message" class="updated"><p><div class="success_icon"></div> ' . $msg . '</p></div>';		
+	$msg = '<div id="message" class="updated"><p><div class="success_icon"></div> ' . $msg . '</p></div>';		
+	if($out=='echo')
+	echo $msg;	
+	elseif($out=='push')
+	$this->push_msg($msg);
 }
 
 //---------------------------------------------------- 
 
-function failure_option_msg($msg)
+public function failure_option_msg($msg,$out='echo')
 {	
-	echo '<div id="message" class="error"><p><div class="failure_icon"></div> ' . $msg . '</p></div>';		
+	$msg =  '<div id="message" class="error"><p><div class="failure_icon"></div> ' . $msg . '</p></div>';		
+	if($out=='echo')
+	echo $msg;	
+	elseif($out=='push')
+	$this->push_msg($msg);
+	
 }
 
+//----------------------------------------------------
+
+private function push_msg($msg)
+{	
+	global $utilpro;
+	$msgs=$utilpro->get_option_value('admin_notices');
+	if(is_array($msgs))
+    {
+        $msgs[count($msgs)]=$msg;
+        
+    }else
+    {
+        $msgs = array();
+        $msgs[0]=$msg;
+    }
+    
+    $utilpro->update_option('admin_notices',$msgs);
+	
+}
 
 //---------------------------------------------------- 
 
 
-function there_is_cache()
+public function there_is_cache()
 {	
 
 $plugins=get_option( 'active_plugins' );
@@ -448,12 +508,35 @@ $plugins=get_option( 'active_plugins' );
 
 	return '';				
 }
+
+//---------------------------------------------------- 
+
+
+public function there_is_plugin($plugin)
+{	
+
+$plugins=get_option( 'active_plugins' );
+
+		    for($i=0;$i<count($plugins);$i++)
+		    {   
+		       $phpfile = substr( $plugins[$i], strrpos( $plugins[$i], '/' )+1 );
+		       $phpfile = explode(".", $phpfile);
+		       $plugin_name = $phpfile[0];
+		       if ($plugin_name==$plugin)
+		       {
+		         return true;  
+		       }
+		    }
+
+
+	return false;				
+}
 	
 //---------------------------------------------------------------
-		
-function regex_prepare($string)
+	
+public function regex_prepare($string)
 {
-
+ 
  $from= array('.', '+', '*', '?','[','^',']','$','(',')','{','}','=','!','<','>','|',':','-',')','/', '\\');
  $to= array('\\.', '\\+', '\\*', '\\?','\\[','\\^','\\]','\\$','\\(','\\)','\\{','\\}','\\=','\\!','\\<','\\>','\\|','\\:','\\-','\\)','\\/','\\\\');
  return str_replace($from,$to,$string);

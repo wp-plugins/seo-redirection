@@ -6,12 +6,23 @@ $table_name = $table_prefix . 'WP_SEO_Redirection';
 $redirect_from="";
 $redirect_to="";
 $redirect_type="";
+$redirect_from_type="";
+$redirect_from_folder_settings="";
+$redirect_from_subfolders="";
+$redirect_to_type="";
+$redirect_to_folder_settings="";
+$enabled="";
 
-if(isset($_GET['add']))
+if($util->get('add')!='')
 echo '<h3>Add New Custom Redirection<hr></h3>';
-else if(isset($_GET['edit']) && intval($_GET['edit'])>0){
+else if(intval($util->get('edit'))>0){
 echo '<h3>Update Existing Redirection<hr></h3>';
-$item = $wpdb->get_row(" select * from $table_name where ID=". intval($_GET['edit']));
+$item = $wpdb->get_row(" select * from $table_name where ID=". intval($util->get('edit')));
+    if($wpdb->num_rows==0)
+    {
+       $utilpro->info_option_msg("Sorry, this redirect rule is not found, it may deleted by the user!");
+       exit(0);
+    }
 $redirect_from=$item->redirect_from;
 $redirect_to=$item->redirect_to;
 $redirect_type=$item->redirect_type;
@@ -30,10 +41,10 @@ else
 header("location: .");
 
 
-if($_GET['page404']!='')
+if($util->get('page404')!='')
 {
 	$table_name_404 = $table_prefix . 'WP_SEO_404_links';
-	$i404 = $wpdb->get_row(" select link from $table_name_404 where ID=". intval($_GET['page404']));
+	$i404 = $wpdb->get_row(" select link from $table_name_404 where ID=". intval($util->get('page404')));
 	if($i404->link!='')
 	$redirect_from=$i404->link;
 	else
@@ -76,7 +87,7 @@ if($_GET['page404']!='')
 		
 		 *  <font style="font-size: 12px;color:#a7a7a7">(Starting with 'http://')</font>
 		 </div>
-		 <? if($_GET['page404']!='') echo $redirect_from; ?>
+		 <? if($util->get('page404')!='') echo $redirect_from; ?>
 		</td>
 	</tr>
 	<tr>
@@ -211,7 +222,7 @@ echo "document.getElementById('enabled').value='$enabled';";
 
 
 
-if($_GET['page404']!='')
+if($util->get('page404')!='')
 echo "document.getElementById('rfrom_div').style.display = 'none';";
 
 
@@ -230,14 +241,14 @@ echo "document.getElementById('rfrom_div').style.display = 'none';";
 <br/>
 
 
-<input type="hidden" id="edit" name="edit" value="<?=intval($_GET['edit'])?>">
+<input type="hidden" id="edit" name="edit" value="<?=intval($util->get('edit'))?>">
 <b>Note</b>: When you move your site to another domain, the new domain name will be reflected to all links automatically.
 	<br/><br/>
 <?php
 
-if(isset($_GET['add']))
+if($util->get('add')!='')
 echo '<input  class="button-primary" type="submit" value="Add New" name="add_new">';
-else if(isset($_GET['edit']))
+else if($util->get('edit')!='')
 echo '<input  class="button-primary" type="submit" value="Update" name="edit_exist">';
 
 ?>

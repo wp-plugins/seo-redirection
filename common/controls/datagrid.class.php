@@ -40,9 +40,11 @@ class datagrid
 	
 	public function datagrid($data_source='',$filter='')
 	{
+
 		$this->cols = array();
 		$this->ext_fields = array();
 		$this->table = array();
+		
 		$this->header = array();
 		$this->body = array();
 		$this->footer = array();
@@ -195,7 +197,8 @@ class datagrid
 		$result="";
 		for($i=0;$i<count($this->cols);$i++)
 		{
-			if($this->cols[$i]['field']!='')
+			
+			if(array_key_exists('field',$this->cols[$i]) && $this->cols[$i]['field']!='')
 			{
 				if($result=="")
 					$result=$this->cols[$i]['field'];
@@ -256,7 +259,7 @@ class datagrid
 		$index=0;
 		
 		$handler=&$this->get_handler($group);
-		$handler[col][intval($index)][$attr]=$val;
+		$handler['col'][intval($index)][$attr]=$val;
 		
 	}
 	
@@ -271,7 +274,7 @@ class datagrid
 		$index=0;
 		
 		$handler=&$this->get_handler($group);
-		return $handler[col][intval($index)][$attr];
+		return $handler['col'][intval($index)][$attr];
 	}
 
 //-----------------------------------------------------------------
@@ -393,15 +396,15 @@ class datagrid
 			$row= array();
 			for($i=0;$i<count($this->cols);$i++)
 			{
-				if($this->cols[$i]['field']!='')
+				if(array_key_exists('field',$this->cols[$i]) && $this->cols[$i]['field']!='')
 				{
 					$row[$i]=$ar[$this->get_rs_field_name($this->cols[$i]['field'])];
 					
-				}else if($this->cols[$i]['php']!='')
+				}else if(array_key_exists('php',$this->cols[$i]) && $this->cols[$i]['php']!='')
 				{				
 					$row[$i]=@eval(str_ireplace('echo','return',$this->cols[$i]['php']));	
 			
-				}else if($this->cols[$i]['html']!='')
+				}else if(array_key_exists('html',$this->cols[$i]) && $this->cols[$i]['html']!='')
 				{
 					$html = $this->cols[$i]['html'];
 					foreach ($ar as $key => $value)
@@ -412,7 +415,7 @@ class datagrid
 
 					$row[$i]= $html;					
 				
-				}else if($this->cols[$i]['template']!='')
+				}else if(array_key_exists('template',$this->cols[$i]) && $this->cols[$i]['template']!='')
 
 				{
 					global $template;
@@ -464,7 +467,7 @@ class datagrid
 	
 	$this->fill_data();			
 	$this->show_table();
-	if(count($this->body['data'])==0)
+	if(!array_key_exists('data',$this->body) || count($this->body['data'])==0)
 	{
 		echo '<div'. $this->get_attrs($this->table) .'><p align="center">' . $this->no_data_text . '</p></div>';
 
@@ -482,7 +485,13 @@ class datagrid
 	private function insert_row($array, $group='')
 	{
 		$handler=&$this->get_handler($group);
-		$handler[data][count($handler[data])]=$array;
+		
+		if(!array_key_exists('data',$handler))
+		{
+		    $handler['data']= array();
+		}
+		
+		$handler['data'][count($handler['data'])]=$array;
 	}	
 	
 
@@ -491,7 +500,7 @@ class datagrid
 	private function update_row($index, $array, $group='')
 	{
 		$handler=&$this->get_handler($group);
-		$handler[data][$index]=$array;
+		$handler['data'][$index]=$array;
 	}	
 	
 //-----------------------------------------------------------------
@@ -507,21 +516,21 @@ class datagrid
 		
 		echo '<table'. $this->get_attrs($this->table) .'>';
 		
-		if(count($header['data'])>0){
+		if(array_key_exists('data',$header) && count($header['data'])>0){
 			echo '<thead>';
 			for($i=0;$i< count($header['data']);$i++)
 				$this->get_html_row($i,'header');
 			echo '</thead>';
 		}
 		
-		if(count($footer['data'])>0){
+		if(array_key_exists('data',$footer) && count($footer['data'])>0){
 			echo '<tfoot>';
 			for($i=0;$i< count($footer['data']);$i++)
 				$this->get_html_row($i,'footer');
 			echo '</tfoot>';
 		}
 		
-		if(count($body['data'])>0){
+		if(array_key_exists('data',$body) && count($body['data'])>0){
 			echo '<tbody>';
 			for($i=0;$i< count($body['data']);$i++)
 				$this->get_html_row($i);
@@ -537,18 +546,32 @@ class datagrid
 	{
 		
 		$handler=&$this->get_handler($group);
-		$row=$handler[data][$index];
+		$row=$handler['data'][$index];
 		
 		$col_limit=$this->get_cols_count();
 		if(count($row)<$col_limit)
 		$col_limit=count($row) ;
 		
 		//print row tag start
+		$trattr='';
+		$tdattr='';
 		
-		echo '<tr'.  $this->get_attrs($handler['rows'])  .'>';		
+		
+		if(array_key_exists('rows',$handler))
+			$trattr=$this->get_attrs($handler['rows']); 
+	
+		echo '<tr'.  $trattr  .'>';		
 		for($i=0;$i<$col_limit;$i++)
 		{
-			$tdattr=$this->get_attrs($handler['col'][$i]); 
+
+			
+			
+			if(array_key_exists('col',$handler) && is_array($handler['col']) && array_key_exists($i,$handler['col']))
+			        $tdattr=$this->get_attrs($handler['col'][$i]);
+			     else
+			        $tdattr='';
+			
+
 			echo '<td' . $tdattr . '>' . $row[$i] . '</td>';
 		}
 		echo '</tr>';

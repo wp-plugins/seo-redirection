@@ -10,3 +10,24 @@
 
 .arrow_from{ padding-left: 20px; background:url("images/arrow_from.png") no-repeat left top}
 .arrow_to{ padding-left: 20px; background:url("images/arrow_to.png") no-repeat left bottom}
+
+
+
+.procontainer {
+border:1px solid #999;
+float:left;
+width:100%;
+min-width: 820px;
+background:#fff;
+-webkit-border-radius:8px;
+-moz-border-radius:8px;
+border-radius:8px;
+margin-top:15px;
+}
+
+.procontainer .ad{
+padding-left:410px;
+padding-top:5px;
+background:url(images/pro.png) no-repeat 5px 5px;
+height:51px;
+}

@@ -4,8 +4,8 @@ global $wpdb,$table_prefix,$util;
 $table_name = $table_prefix . 'WP_SEO_Redirection_LOG'; 
 $rlink=$util->get_current_parameters(array('del','search','page_num','add','edit'));
 
-if(isset($_GET['del'])){	
-	if($_GET['del']=='all'){
+if($util->get('del')!=''){	
+	if($util->get('del')=='all'){
 		c_clear_redirection_history();
 	
 		if($util->there_is_cache()!='') 
@@ -42,7 +42,7 @@ var sword = document.getElementById('search').value;
 	<tr>
 		<td width="150"><a href="<?=$rlink?>&del=all"><div class="del_link">Clear History</div></a></div></td>
 		<td align="right">
-		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?=$_GET['search']?>" size="40">
+		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?=$util->get('search')?>" size="40">
 		<a onclick="go_search()" href="#"><div class="search_link">Search</div></a> 
 		<a href="<?=$util->get_current_parameters('search')?>"><div class="see_link">Show All</div></a>
 		</td>
@@ -57,9 +57,9 @@ var sword = document.getElementById('search').value;
 	$grid->set_data_source($table_name);
 	$grid->set_order(" ID desc "); 
 
-	if($_GET['search']!='')
+	if($util->get('search')!='')
 	{
-		$search=$_GET['search'];
+		$search=$util->get('search');
 		
 		$grid->set_filter(" rfrom like '%%$search%%' or rto like '%%$search%%' or ctime like '%%$search%%'
 		or referrer like '%%$search%%'   or country like '%%$search%%'   or ip like '%%$search%%'

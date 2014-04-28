@@ -3,20 +3,20 @@ global $wpdb,$table_prefix,$util;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 $table_name_404 = $table_prefix . 'WP_SEO_404_links';
 
-if(isset($_POST)){
+if($util->post('redirect_from')!=''){
 
-$redirect_from=$_POST['redirect_from'];
-$redirect_to=$_POST['redirect_to'];
-$redirect_type=$_POST['redirect_type'];
+$redirect_from=$util->post('redirect_from');
+$redirect_to=$util->post('redirect_to');
+$redirect_type=$util->post('redirect_type');
 
-$redirect_from_type=$_POST['redirect_from_type'];
-$redirect_from_folder_settings=$_POST['redirect_from_folder_settings'];
-$redirect_from_subfolders=$_POST['redirect_from_subfolders'];
+$redirect_from_type=$util->post('redirect_from_type');
+$redirect_from_folder_settings=$util->post('redirect_from_folder_settings');
+$redirect_from_subfolders=$util->post('redirect_from_subfolders');
 
-$redirect_to_type=$_POST['redirect_to_type'];
-$redirect_to_folder_settings=$_POST['redirect_to_folder_settings'];
+$redirect_to_type=$util->post('redirect_to_type');
+$redirect_to_folder_settings=$util->post('redirect_to_folder_settings');
 
-$enabled=$_POST['enabled'];
+$enabled=$util->post('enabled');
 
 $regex="";
 
@@ -73,7 +73,7 @@ if($redirect_to_type =='Folder')
 
 	
 
-	if(isset($_POST['add_new']))
+	if($util->post('add_new')!='')
 	{
 		
 	$theurl = $wpdb->get_row(" select count(ID) as cnt from $table_name where redirect_from='$redirect_from' ");
@@ -96,9 +96,9 @@ if($redirect_to_type =='Folder')
 		
 		
 	
-	}}else if(isset($_POST['edit_exist']))
+	}}else if($util->post('edit_exist')!='')
 	{
-		$edit=$_POST['edit'];
+		$edit=$util->post('edit');
 			
 		if($redirect_from=='' || $redirect_to=='' || $redirect_type=='' ){
 			$util->failure_option_msg('Please input all required fields!');
@@ -116,7 +116,7 @@ if($util->there_is_cache()!='')
 	
 }
 
-  if(isset($_GET['add']) || isset($_GET['edit']) )
+  if($util->get('add')!='' || $util->get('edit')!='' )
   {
   	include "option_page_custome_redirection_add_update.php";
   }else

@@ -5,9 +5,9 @@ $table_name = $table_prefix . 'WP_SEO_Redirection';
 
 
 		
-	if(isset($_GET['del']))
+	if($util->get('del')!='')
 	{
-		$delid=intval($_GET['del']);
+		$delid=intval($util->get('del'));
 		$wpdb->query(" delete from $table_name where ID='$delid' ");	
 		
 		if($util->there_is_cache()!='') 
@@ -42,7 +42,7 @@ var sword = document.getElementById('search').value;
 	<tr>
 		<td width="110"><a href="<?=$rlink?>&add=1"><div class="add_link">Add New</div></a></div></td>
 		<td align="right">
-		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?=$_GET['search']?>" size="40">
+		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?=$util->get('search')?>" size="40">
 		<a onclick="go_search()" href="#"><div class="search_link">Search</div></a> 
 		<a href="<?=$util->get_current_parameters('search')?>"><div class="see_link">Show All</div></a>
 		</td>
@@ -67,9 +67,9 @@ var sword = document.getElementById('search').value;
 	
 	$grid->set_filter("url_type=1");
 	
-	if($_GET['search']!='')
+	if($util->get('search')!='')
 	{
-		$search=$_GET['search'];
+		$search=$util->get('search');
 		$grid->set_filter("url_type=1 and (redirect_from like '%%$search%%' or redirect_to like '%%$search%%' or redirect_type like '%%$search%%'  )");
 	}
 	
