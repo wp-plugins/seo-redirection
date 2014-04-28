@@ -12,6 +12,46 @@ var $option_group_name='clogica_option_group';
 var $plugin_folder='plugin_folder_name'; 
 
 
+	public function get($key,$escape=0)
+{
+	if(array_key_exists($key,$_GET))
+	{
+	   if($escape)
+	   {
+	      return mysql_real_escape_string($_GET[$key]); 
+	   }else
+	   {
+	     return $_GET[$key];  
+	   }
+	}
+	else
+	{
+	    return '';
+	}
+}
+
+//---------------------------------------------------- 
+
+public function post($key,$escape=0)
+{
+	if(array_key_exists($key,$_POST))
+	{
+	   if($escape)
+	   {
+	      return mysql_real_escape_string($_POST[$key]); 
+	   }else
+	   {
+	     return $_POST[$key];  
+	   }
+	}
+	else
+	{
+	    return '';
+	}
+}
+
+//----------------------------------------------------
+	
 function set_option_gruop($option_group_name)
 {
 	$this->option_group_name=$option_group_name;
@@ -122,7 +162,7 @@ function get_current_URL()
 //----------------------------------------------------
 
 
-function get_current_parameters($remove_parameter="")
+public function get_current_parameters($remove_parameter="")
 {	
 	
 	if($_SERVER['QUERY_STRING']!='')
@@ -134,20 +174,23 @@ function get_current_parameters($remove_parameter="")
 			for($i=0;$i<count($remove_parameter);$i++)
 			{
 			
-				$string_remove = '&' . $remove_parameter[$i] . "=" . $_GET[$remove_parameter[$i]];
-				$qry=str_replace($string_remove,"",$qry);
-				$string_remove = '?' . $remove_parameter[$i] . "=" . $_GET[$remove_parameter[$i]];
-				$qry=str_replace($string_remove,"",$qry);
-			
+				if(array_key_exists($remove_parameter[$i],$_GET)){
+    				$string_remove = '&' . $remove_parameter[$i] . "=" . $_GET[$remove_parameter[$i]];
+    				$qry=str_replace($string_remove,"",$qry);
+    				$string_remove = '?' . $remove_parameter[$i] . "=" . $_GET[$remove_parameter[$i]];
+    				$qry=str_replace($string_remove,"",$qry);
+				}
 			}
 			
 		}else{		
 			if($remove_parameter!='')
 			{
-				$string_remove = '&' . $remove_parameter . "=" . $_GET[$remove_parameter];
-				$qry=str_replace($string_remove,"",$qry);
-				$string_remove = '?' . $remove_parameter . "=" . $_GET[$remove_parameter];
-				$qry=str_replace($string_remove,"",$qry);
+				if(array_key_exists($remove_parameter,$_GET)){
+				    $string_remove = '&' . $remove_parameter . "=" . $_GET[$remove_parameter];
+				    $qry=str_replace($string_remove,"",$qry);
+				    $string_remove = '?' . $remove_parameter . "=" . $_GET[$remove_parameter];
+				    $qry=str_replace($string_remove,"",$qry);
+				}
 			}
 		}
 		return $qry;
@@ -156,6 +199,7 @@ function get_current_parameters($remove_parameter="")
 		return "";
 	}
 } 
+
 
 
 //---------------------------------------------------------------

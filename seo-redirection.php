@@ -28,10 +28,6 @@ add_action( 'admin_head', 'WPSR_check_redirection_base' );
 register_activation_hook( __FILE__ , 'WPSR_install' );
 register_uninstall_hook( __FILE__ , 'WPSR_uninstall' ); 
 
-wp_register_style( 'c_admin_css_common', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/common/' . "style.css" );
-wp_register_style( 'c_admin_css_custom', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/custom/' . "style.css" );
-//wp_enqueue_script('c_admin_js_validation', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/common/js/' . "jquery.validate.min.js", array('jquery'));
-
 /////////////////////////////////////////////////////////////////////////
 
 function adding_WPSR_custom_meta_boxes( $post_type, $post ) {
@@ -449,17 +445,18 @@ $theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex<>
 function WPSR_header_code()
 {
 
+	wp_register_style( 'c_admin_css_common', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/common/' . "style.css" );
+	wp_register_style( 'c_admin_css_custom', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/custom/' . "style.css" );
+	wp_enqueue_script('jquery');
 	wp_enqueue_style('c_admin_css_common');
 	wp_enqueue_style('c_admin_css_custom');
-	wp_enqueue_script('jquery');
-	//wp_enqueue_script('c_admin_js_validation');
-
+	
 }
 
 //---------------------------------------------------------------
 
 function WPSR_admin_menu() {
-	add_options_page('SEO Redirection', 'SEO Redirection', 10, basename(__FILE__), 'WPSR_options_menu'  );
+	add_options_page('SEO Redirection', 'SEO Redirection', 'manage_options', basename(__FILE__), 'WPSR_options_menu'  );
 }
 
 //---------------------------------------------------------------
