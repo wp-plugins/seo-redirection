@@ -25,10 +25,10 @@ By this plugin you can build redirections easily for your site, you can set up a
 <li>Reflect changes to all links when you move your site or change the domain name</li> 
 <li>Friendly GUI and easy to use.</li>  
 </ul>
-
 <h3><a href="http://codecanyon.net/item/seo-redirection-pro/7596396?ref=fakhri">
 See the amazing features in the PRO version</a></h3>
-
+<br/>
+<br/>
 **Plugin Usage:**
 
 **Redirecting Posts & Pages**
