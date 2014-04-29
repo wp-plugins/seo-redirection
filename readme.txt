@@ -26,6 +26,9 @@ By this plugin you can build redirections easily for your site, you can set up a
 <li>Friendly GUI and easy to use.</li>  
 </ul>
 
+<h3><a href="http://codecanyon.net/item/seo-redirection-pro/7596396?ref=fakhri">
+See the amazing features in the PRO version</a></h3>
+
 **Plugin Usage:**
 
 **Redirecting Posts & Pages**
