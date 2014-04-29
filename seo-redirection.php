@@ -261,7 +261,7 @@ function  WPSR_check_redirection_base()
 function  WPSR_get_post_redirection($post_id)
 {
 
-global $wpdb,$table_prefix ;
+global $wpdb,$util,$table_prefix ;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 
 // Autosave
