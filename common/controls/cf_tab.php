@@ -64,9 +64,9 @@ var $ignore_parameters='';
 	function run()
 	{ global $util;
 		
-		$tab_index= $_GET[$this->parameter];
+		$tab_index= $util->get($this->parameter);
 		
-		if($_GET[$this->parameter]=='')
+		if($tab_index=='')
 		$tab_index=$this->tabs[0]['num'];
 		
 		$options_path='';

@@ -161,6 +161,9 @@ public function get_current_URL()
 	$prt = $_SERVER['SERVER_PORT'];
 	$sname = $_SERVER['SERVER_NAME'];
 	
+	if (array_key_exists('HTTPS',$_SERVER) && $_SERVER['HTTPS'] != 'off' && $_SERVER['HTTPS'] != '')
+	$sname = "https://" . $sname; 
+	else
 	$sname = "http://" . $sname; 
 	
 	if($prt !=80)
