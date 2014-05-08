@@ -461,12 +461,13 @@ $theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex<>
 function WPSR_header_code()
 {
 
+	if( is_admin() ) {
 	wp_register_style( 'c_admin_css_common', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/common/' . "style.css" );
 	wp_register_style( 'c_admin_css_custom', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/custom/' . "style.css" );
 	wp_enqueue_script('jquery');
 	wp_enqueue_style('c_admin_css_common');
 	wp_enqueue_style('c_admin_css_custom');
-	
+	}
 }
 
 //---------------------------------------------------------------
