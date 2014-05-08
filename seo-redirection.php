@@ -30,34 +30,28 @@ register_uninstall_hook( __FILE__ , 'WPSR_uninstall' );
 
 /////////////////////////////////////////////////////////////////////////
 
-function adding_WPSR_custom_meta_boxes( $post_type, $post ) {
+function adding_WPSR_custom_meta_boxes() {
 	global $util;
 	if($util->get_option_value('show_redirect_box')=='1'){
 
-		add_meta_box(
-			'WPSR_meta_box',
-			__( 'SEO Redirection' ),
-			'WPSR_render_meta_box',
-			'post',
-			'normal',
-			'default'
-		);
-
-			add_meta_box(
-			'WPSR_meta_box',
-			__( 'SEO Redirection' ),
-			'WPSR_render_meta_box',
-			'page',
-			'normal',
-			'default'
-		);
-
+    	$screens = array( 'post', 'page' );
+    
+    	foreach ( $screens as $screen ) {
+    
+    		add_meta_box(
+    			'WPSR_meta_box',
+    			__( 'SEO Redirection'),
+    			'WPSR_render_meta_box',
+    			$screen
+    		);
+    	}
+	
 	}
 
 }
 
 
-function WPSR_render_meta_box()
+function WPSR_render_meta_box($post)
 {
 
 global $wpdb,$table_prefix,$util,$post ;
