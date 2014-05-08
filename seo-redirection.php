@@ -54,7 +54,7 @@ function adding_WPSR_custom_meta_boxes() {
 function WPSR_render_meta_box($post)
 {
 
-global $wpdb,$table_prefix,$util,$post ;
+global $wpdb,$table_prefix,$util ;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 
 	if(get_post_status()!='auto-draft')
