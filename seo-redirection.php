@@ -60,19 +60,19 @@ function adding_WPSR_custom_meta_boxes( $post_type, $post ) {
 function WPSR_render_meta_box()
 {
 
-global $wpdb,$table_prefix,$util ;
+global $wpdb,$table_prefix,$util,$post ;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 
 	if(get_post_status()!='auto-draft')
 	{
 		$permalink="";
-		global $post;
 		if (in_array($post->post_status, array('draft', 'pending'))) {
 		list( $permalink, $postname ) = get_sample_permalink( $post->ID);
     		$permalink = str_replace( '%postname%', $postname, $permalink );
 
 		} else {
-		    $permalink = get_permalink();
+		    	
+				$permalink = get_permalink($post->ID);
 		}
 
 		$postID=$post->ID;
