@@ -67,6 +67,9 @@ To install SEO redirection there is two ways:
 	- Lockup the plugin, and click "Activate" to get it active.
 	- Go to the Options page and configure the plugin.
 
+	<p>view this posts if you want more details about installing plugins: <a href="http://www.wpfasthelp.com/how-to-install-wordpress-plugins.htm">
+http://www.wpfasthelp.com/how-to-install-wordpress-plugins.htm</a></p>
+
 == Screenshots ==
 1. Redirection Box in edit page for posts and pages.
 2. List of custom redirections.
