@@ -1,4 +1,4 @@
-=== SEO Redirection Plugin ===
+=== Redirection SEO Plugin ===
 Contributors: fakhris 
 Donate link:http://www.clogica.com/donations.htm
 Tags: redirection, seo redirection, redirect, redirected, Quick Redirect, post redirect, 301 redirect, 404 redirection, redirection plugin
