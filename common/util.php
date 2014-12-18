@@ -58,7 +58,7 @@ public function get_ref()
 {
 	if(array_key_exists('HTTP_REFERER',$_SERVER))
 	{
-	      return mysql_real_escape_string($_SERVER['HTTP_REFERER']); 
+	      return mysql_real_escape_string(strip_tags($_SERVER['HTTP_REFERER'])); 
 	}
 	else
 	{
