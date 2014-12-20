@@ -13,17 +13,12 @@ private $plugin_folder='plugin_folder_name';
 public $mytabs;
 
 
-public function get($key,$escape=0)
+public function get($key,$type='text')
 {
 	if(array_key_exists($key,$_GET))
 	{
-	   if($escape)
-	   {
-	      return mysql_real_escape_string($_GET[$key]); 
-	   }else
-	   {
-	     return $_GET[$key];  
-	   }
+		  $unsafe_val=$_GET[$key];
+	      return sanitize_req($unsafe_val,$type);	  
 	}
 	else
 	{
@@ -33,17 +28,12 @@ public function get($key,$escape=0)
 
 //---------------------------------------------------- 
 
-public function post($key,$escape=0)
+public function post($key,$type='text')
 {
 	if(array_key_exists($key,$_POST))
 	{
-	   if($escape)
-	   {
-	      return mysql_real_escape_string($_POST[$key]); 
-	   }else
-	   {
-	     return $_POST[$key];  
-	   }
+		  $unsafe_val=$_POST[$key];
+	      return sanitize_req($unsafe_val,$type);	  
 	}
 	else
 	{
@@ -51,6 +41,33 @@ public function post($key,$escape=0)
 	}
 }
 
+
+
+//----------------------------------------------------
+
+public function sanitize_req($unsafe_val,$type='text')
+{
+	 switch ($type) {
+	   case 'text': return sanitize_text_field($unsafe_val);
+	   break;
+	   
+	   case 'int': return intval($unsafe_val);
+	   break;
+	   
+	   case 'email': return sanitize_email($unsafe_val);
+	   break;
+	   
+	   case 'filename': return sanitize_file_name($unsafe_val);
+	   break;
+	   
+	   case 'title': return sanitize_title($unsafe_val);
+	   break;
+	      
+	   default:
+        return sanitize_text_field($unsafe_val);
+	   
+	   }
+}
 
 //---------------------------------------------------- 
 
