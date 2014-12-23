@@ -18,7 +18,7 @@ public function get($key,$type='text')
 	if(array_key_exists($key,$_GET))
 	{
 		  $unsafe_val=$_GET[$key];
-	      return sanitize_req($unsafe_val,$type);	  
+	      return $this->sanitize_req($unsafe_val,$type);	  
 	}
 	else
 	{
