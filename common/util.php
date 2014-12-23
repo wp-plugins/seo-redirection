@@ -33,7 +33,7 @@ public function post($key,$type='text')
 	if(array_key_exists($key,$_POST))
 	{
 		  $unsafe_val=$_POST[$key];
-	      return sanitize_req($unsafe_val,$type);	  
+	      return $this->sanitize_req($unsafe_val,$type);	  
 	}
 	else
 	{
@@ -75,7 +75,7 @@ public function get_ref()
 {
 	if(array_key_exists('HTTP_REFERER',$_SERVER))
 	{
-	      return sanitize_req(strip_tags($_SERVER['HTTP_REFERER'])); 
+	      return $this->sanitize_req(strip_tags($_SERVER['HTTP_REFERER'])); 
 	}
 	else
 	{
