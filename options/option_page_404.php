@@ -34,7 +34,7 @@ if($util->get_option_value('p404_discovery_status')!='1')
 function go_search(){
 var sword = document.getElementById('search').value;
 	if(sword!=''){
-		window.location = "<?=$rlink?>&search=" + sword ;
+		window.location = "<?php echo $rlink?>&search=" + sword ;
 	}else
 	{
 		alert('Please input any search words!');
@@ -53,9 +53,9 @@ var sword = document.getElementById('search').value;
 <table border="0" width="100%">
 	<tr>
 		<td align="left">
-		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?=$util->get('search')?>" size="40">
+		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?php echo $util->get('search')?>" size="40">
 		<a onclick="go_search()" href="#"><div class="search_link">Search</div></a> 
-		<a href="<?=$util->get_current_parameters('search')?>"><div class="see_link">Show All</div></a>
+		<a href="<?php echo $util->get_current_parameters('search')?>"><div class="see_link">Show All</div></a>
 		</td>
 	</tr>
 </table>
@@ -130,7 +130,7 @@ var sword = document.getElementById('search').value;
 	Redirect Unknown 404 Pages to:
 	</td>
 	<td>
-	<input type="text" name="redirect_to" id="redirect_to" size="30" value="<?=$options['p404_redirect_to']?>">
+	<input type="text" name="redirect_to" id="redirect_to" size="30" value="<?php echo $options['p404_redirect_to']?>">
 	</td>
 	</tr>
 </table>		

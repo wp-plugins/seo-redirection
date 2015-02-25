@@ -8,8 +8,6 @@ Version: 2.2
 Author URI: http://www.clogica.com
 */
 
-session_start();
-
 require_once ('common/controls.php');
 require_once ('custom/controls.php');
 

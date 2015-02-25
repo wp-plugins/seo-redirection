@@ -52,7 +52,7 @@ if($util->get('page404')!='')
 }
 
 ?>
-<form onsubmit="return check_from();" method="POST" id="myform" action="<?=$util->get_current_parameters(array('add','edit','page404'));?>">
+<form onsubmit="return check_from();" method="POST" id="myform" action="<?php echo $util->get_current_parameters(array('add','edit','page404'));?>">
 <table class="cform" width="100%">
 
 	<tr>
@@ -74,7 +74,7 @@ if($util->get('page404')!='')
 			<option value="Folder">Folder</option>
 			<option value="Regex">Regex</option>
 		</select>
-		<input onblur="check_redirect_from()" type="text" id="redirect_from" name="redirect_from" size="45" value="<?=$redirect_from?>">
+		<input onblur="check_redirect_from()" type="text" id="redirect_from" name="redirect_from" size="45" value="<?php echo $redirect_from?>">
 	      <select onchange="redirect_to_folder_settings_change()" size="1" name="redirect_from_folder_settings"  id="redirect_from_folder_settings">
 			<option value="1">Only the folder</option>
 			<option value="2">The folder and it's content</option>
@@ -98,7 +98,7 @@ if($util->get('page404')!='')
 			<option value="Folder">Folder</option>
 		</select>
 		
-		<input onblur="check_redirect_to()" type="text" id="redirect_to" name="redirect_to" size="45" value="<?=$redirect_to?>">
+		<input onblur="check_redirect_to()" type="text" id="redirect_to" name="redirect_to" size="45" value="<?php echo $redirect_to?>">
 		
 		<select size="1" name="redirect_to_folder_settings"  id="redirect_to_folder_settings">
 			<option value="1">Normal</option>
@@ -241,7 +241,7 @@ echo "document.getElementById('rfrom_div').style.display = 'none';";
 <br/>
 
 
-<input type="hidden" id="edit" name="edit" value="<?=intval($util->get('edit'))?>">
+<input type="hidden" id="edit" name="edit" value="<?php echo intval($util->get('edit'))?>">
 <b>Note</b>: When you move your site to another domain, the new domain name will be reflected to all links automatically.
 	<br/><br/>
 <?php
@@ -252,7 +252,7 @@ else if($util->get('edit')!='')
 echo '<input  class="button-primary" type="submit" value="Update" name="edit_exist">';
 
 ?>
- <input onclick="window.location='<?=$util->get_current_parameters(array('add','edit'));?>';"  class="button-primary" type="button" value="Cancel" name="cancel">
+ <input onclick="window.location='<?php echo $util->get_current_parameters(array('add','edit'));?>';"  class="button-primary" type="button" value="Cancel" name="cancel">
 <br/></form>
 
 <script>

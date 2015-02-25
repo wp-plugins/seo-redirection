@@ -26,7 +26,7 @@ $table_name = $table_prefix . 'WP_SEO_Redirection';
 function go_search(){
 var sword = document.getElementById('search').value;
 	if(sword!=''){
-		window.location = "<?=$rlink?>&search=" + sword ;
+		window.location = "<?php echo $rlink?>&search=" + sword ;
 	}else
 	{
 		alert('Please input any search words!');
@@ -40,11 +40,11 @@ var sword = document.getElementById('search').value;
 <div class="link_buttons">
 <table border="0" width="100%">
 	<tr>
-		<td width="110"><a href="<?=$rlink?>&add=1"><div class="add_link">Add New</div></a></div></td>
+		<td width="110"><a href="<?php echo $rlink?>&add=1"><div class="add_link">Add New</div></a></div></td>
 		<td align="right">
-		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?=$util->get('search')?>" size="40">
+		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?php echo $util->get('search')?>" size="40">
 		<a onclick="go_search()" href="#"><div class="search_link">Search</div></a> 
-		<a href="<?=$util->get_current_parameters('search')?>"><div class="see_link">Show All</div></a>
+		<a href="<?php echo $util->get_current_parameters('search')?>"><div class="see_link">Show All</div></a>
 		</td>
 	</tr>
 </table>
