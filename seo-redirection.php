@@ -4,7 +4,7 @@ Plugin Name: SEO Redirection
 Plugin URI: http://www.clogica.com
 Description: By this plugin you can manage all your website redirection types easily.
 Author: Fakhri Alsadi
-Version: 2.3
+Version: 2.4
 Author URI: http://www.clogica.com
 */
 
