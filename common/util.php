@@ -519,7 +519,7 @@ $plugins=get_option( 'active_plugins' );
 
 		    for($i=0;$i<count($plugins);$i++)
 		    {   
-		       if (stripos($plugins[$i],'cache')!==false)
+		       if ( array_key_exists($i, $plugins) && stripos($plugins[$i],'cache')!==false)
 		       {
 		       	  return $plugins[$i];
 		       }
