@@ -18,7 +18,7 @@ $util->set_plugin_folder(basename(dirname(__FILE__)));
 
 add_action('admin_enqueue_scripts', 'WPSR_header_code');
 add_action('admin_menu', 'WPSR_admin_menu');
-add_action('init', 'WPSR_redirect');
+add_action('wp', 'WPSR_redirect');
 add_action( 'save_post', 'WPSR_get_post_redirection');
 add_action( 'add_meta_boxes', 'adding_WPSR_custom_meta_boxes', 10, 3 );
 add_action( 'admin_head', 'WPSR_check_redirection_base' );
