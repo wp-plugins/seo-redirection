@@ -5,7 +5,7 @@ $table_name_404 = $table_prefix . 'WP_SEO_404_links';
 
 if($util->post('redirect_from')!=''){
 
-$redirect_from=$util->post('redirect_from');
+$redirect_from=urldecode($util->post('redirect_from'));
 $redirect_to=$util->post('redirect_to');
 $redirect_type=$util->post('redirect_type');
 

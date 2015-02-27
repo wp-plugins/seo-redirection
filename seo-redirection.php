@@ -413,7 +413,7 @@ function WPSR_redirect()
 
 global $wpdb,$table_prefix,$util ;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
-$permalink=$util->get_current_URL();
+$permalink= urldecode($util->get_current_URL());
 
 
 if($util->get_option_value('plugin_status')=='1'){
