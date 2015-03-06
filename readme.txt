@@ -98,3 +98,8 @@ To redirect a folder, go to custom redirection tab, add a new folder-to-page or 
 **3. How can I redirect 404 Error pages?**
 
 Go to Discvered 404 Error Pages tab, choose any 404 error page and choose 'Redirect' to create It's redirection, you can add it as a custom redirection if you know it\'s URL.
+
+== Changelog ==
+
+= 2.5 =
+* Using relative URLs instead of absolute URL's, This will usefull when changing the domian name.

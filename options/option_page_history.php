@@ -92,7 +92,7 @@ var sword = document.getElementById('search').value;
 	
 	$grid->add_php_col('echo date(\'Y-n-j\',strtotime($db_ctime)) . \'<br/>\' .  date(\'H:i:s\',strtotime($db_ctime));  ','Time');
 	
-	$grid->add_html_col('<div class=\'arrow_from\'>{db_rfrom}</div><div class=\'arrow_to\'>{db_rto}</div>','Redirection');
+	$grid->add_php_col(' echo "<div class=\'arrow_from\'><a target=\'_blank\' href=\'" . SEOR_make_absolute_url($db_rfrom) ."\'>{$db_rfrom}</a></div><div class=\'arrow_to\'><a target=\'_blank\' href=\'" . SEOR_make_absolute_url($db_rto) ."\'>{$db_rto}</a></div>" ;','Redirection');
 	$grid->add_data_col('rtype','Type');
 	$grid->add_php_col('if($db_referrer !="") echo "<a target=\'_blank\' title=\'$db_referrer\' href=\'$db_referrer\'><span class=\'link\'></span></a>" ;','Ref'); 
 	

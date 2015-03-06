@@ -105,7 +105,7 @@ if($util->get('page404')!='')
 			<option value="2">Wild Card Redirect</option>
 		</select>
 		
-		 * <font style="font-size: 12px;color:#a7a7a7">(Starting with 'http://')</font>
+		 *
 		</td>
 	</tr>
 	<tr>
@@ -264,41 +264,17 @@ var rto=document.getElementById('redirect_to').value;
 
 	if( rfrom=='')
 	{
-		alert("You must input the 'Redirect From' URL starting with 'http://'");
+		alert("You must input the 'Redirect From' URL");
 		document.getElementById('redirect_from').focus();
 		return false;		
-	}else
-	{
-		if(document.getElementById('redirect_from_type').value !='Regex')
-		{
-			if(rfrom.substring(0,4)!='http')
-			{
-				alert("'Redirect From' must be a full URL starting with 'http://'!");
-				document.getElementById('redirect_from').focus();
-				return false;
-							
-			}
-			
-		}
 	}
 	
 	
 	if( rto=='')
 	{
-		alert("You must input the 'Redirect To' URL starting with 'http://'");
+		alert("You must input the 'Redirect To' URL");
 		document.getElementById('redirect_to').focus();
 		return false;		
-	}else
-	{
-		
-		if(rto.substring(0,4)!='http')
-		{
-			alert("'Redirect To' must be a full URL starting with 'http://'!");
-			document.getElementById('redirect_to').focus();
-			return false;
-						
-		}
-		
 	}
 		
 	

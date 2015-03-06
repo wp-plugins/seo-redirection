@@ -7,7 +7,7 @@ if($util->post('redirect_to')!='')
 		 global $util;	
 		
 		$util->update_post_option('p404_status');
-		$util->update_option('p404_redirect_to',$_POST['redirect_to']);	
+		$util->update_option('p404_redirect_to',$util->make_relative_url($_POST['redirect_to']));
 		$util->success_option_msg('Options Saved!');	
 		
 		if($util->there_is_cache()!='') 
@@ -68,7 +68,8 @@ var sword = document.getElementById('search').value;
 	$grid->set_data_source($table_name);
 	$grid->add_select_field('ID');
 	$grid->add_select_field('link');
-	$grid->add_select_field('referrer');	
+	$grid->add_select_field('referrer');
+
 	$grid->set_order(" ID desc ");
 	
 	if($util->get('search')!='')
@@ -93,10 +94,12 @@ var sword = document.getElementById('search').value;
 	$grid->set_col_attr(6,'align','center');
 	$grid->set_col_attr(7,'align','center');
 	$grid->set_col_attr(8,'align','center');
-	$grid->set_col_attr(8,'width','20px');     
+	$grid->set_col_attr(8,'width','20px');
+	$grid->set_col_attr(2,'style','padding-left: 5px');
 	$grid->add_data_col('ctime','Discovered');
-	$grid->add_html_col("<a target='_blank' title='{db_link}' href='{db_link}'><span class='link'></span></a>{db_link}",'Link');
-	$grid->add_php_col('if($db_referrer !="") echo "<a target=\'_blank\' title=\'$db_referrer\' href=\'$db_referrer\'><span class=\'link\'></span></a>" ;','Ref'); 
+	//$grid->add_html_col("<a target='_blank' title='{db_link}' href='{db_link}'><span class='link'></span></a>{db_link}",'Link');
+	$grid->add_php_col(' echo " <a target=\'_blank\' href=\'" . SEOR_make_absolute_url($db_link) ."\'> {$db_link}</a>" ;','Link');
+	$grid->add_php_col('if($db_referrer !="") echo "<a target=\'_blank\' title=\'$db_referrer\' href=\'$db_referrer\'><span class=\'link\'></span></a>" ;','Ref');
 	$grid->add_data_col('ip','IP');
 	$grid->add_data_col('country','Country');	
 	$grid->add_data_col('os','OS');

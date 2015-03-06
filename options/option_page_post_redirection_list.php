@@ -56,6 +56,10 @@ var sword = document.getElementById('search').value;
 	$grid->set_data_source($table_name);
 	$grid->add_select_field('ID');
 	$grid->add_select_field('postID');
+	$grid->add_select_field('redirect_from');
+	$grid->add_select_field('redirect_from_type');
+	$grid->add_select_field('redirect_to');
+	$grid->add_select_field('redirect_to_type');
 	$grid->set_table_attr('width','100%');
 	$grid->set_col_attr(5,'width','50px');
 	$grid->set_col_attr(5,'width','50px','header');
@@ -74,8 +78,10 @@ var sword = document.getElementById('search').value;
 	
 	$grid->add_template_col('del', $util->get_current_parameters('del') . '&del={db_ID}','Del');
 	$grid->add_template_col('go_link','post.php?post={db_postID}&action=edit','Post');
-	$grid->add_data_col('redirect_from','Redirect from');
-	$grid->add_data_col('redirect_to','Redirect to');
+	//$grid->add_data_col('redirect_from','Redirect from');
+	//$grid->add_data_col('redirect_to','Redirect to');
+	$grid->add_php_col(' echo "<div class=\'{$db_redirect_from_type}_background_{$db_enabled}\'><a target=\'_blank\' href=\'" . SEOR_make_absolute_url($db_redirect_from) ."\'>{$db_redirect_from}</a></div>" ;','Redirect from ');
+	$grid->add_php_col(' echo "<div class=\'{$db_redirect_to_type}_background_{$db_enabled}\'><a target=\'_blank\' href=\'" . SEOR_make_absolute_url($db_redirect_to) ."\'>{$db_redirect_to}</a></div>"; ','Redirect to ');
 	$grid->add_data_col('redirect_type','Type');
 	
 	$grid->run();

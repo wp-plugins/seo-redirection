@@ -1,7 +1,14 @@
 <?php
 // custom functions
 
-
+function SEOR_make_absolute_url($url)
+{
+	if(substr($url,0,1)=='/')
+	{
+		$url = site_url() . $url;
+	}
+	return $url;
+}
 
 if(!function_exists("c_init_my_options")) {
 function c_init_my_options()
