@@ -200,6 +200,10 @@ public function delete_my_options()
 //-----------------------------------------------------
 		public function make_relative_url($url)
 		{
+			if($url=="")
+			{
+				return "";
+			}
 			$site_url = $this->remove_url_http_www(site_url());
 			if(strpos($url,$site_url) !==false)
 			{

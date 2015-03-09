@@ -78,8 +78,8 @@ var sword = document.getElementById('search').value;
 	
 	$grid->add_template_col('del', $util->get_current_parameters('del') . '&del={db_ID}','Del');
 	$grid->add_template_col('edit', $util->get_current_parameters('edit') . '&edit={db_ID}','Edit');
-$grid->add_php_col(' echo "<div class=\'{$db_redirect_from_type}_background_{$db_enabled}\'><a target=\'_blank\' href=\'" . SEOR_make_absolute_url($db_redirect_from) ."\'>{$db_redirect_from}</a></div>" ;','Redirect from ');
-$grid->add_php_col(' echo "<div class=\'{$db_redirect_to_type}_background_{$db_enabled}\'><a target=\'_blank\' href=\'" . SEOR_make_absolute_url($db_redirect_to) ."\'>{$db_redirect_to}</a></div>"; ','Redirect to ');
+	$grid->add_php_col(' echo "<div class=\'{$db_redirect_from_type}_background_{$db_enabled}\'><a target=\'_blank\' href=\'" . SEOR_make_absolute_url($db_redirect_from) ."\'>{$db_redirect_from}</a></div>" ;','Redirect from ');
+	$grid->add_php_col(' echo "<div class=\'{$db_redirect_to_type}_background_{$db_enabled}\'><a target=\'_blank\' href=\'" . SEOR_make_absolute_url($db_redirect_to) ."\'>{$db_redirect_to}</a></div>"; ','Redirect to ');
 	$grid->add_data_col('redirect_type','Type');
 	
 	$grid->run();
