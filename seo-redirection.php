@@ -258,6 +258,7 @@ if($redirect_to!=''){
 
 	}else
 	{
+		$wpdb->query("delete from $table_name where redirect_from='$redirect_from'");
 		$sql = "insert into $table_name(redirect_from,redirect_to,redirect_type,url_type,postID) values ('$redirect_from','$redirect_to','301',2,'$post_id') ";
 		$wpdb->query($sql);
 	}
