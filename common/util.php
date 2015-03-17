@@ -205,7 +205,7 @@ public function delete_my_options()
 				return "";
 			}
 			$site_url = $this->remove_url_http_www(site_url());
-			if(strpos($url,$site_url) !==false)
+			if(stripos($url,$site_url) !==false)
 			{
 				$url = $this->remove_url_http_www($url);
 				$url = str_ireplace($site_url,'',$url);

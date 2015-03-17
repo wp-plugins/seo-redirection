@@ -4,7 +4,7 @@ Plugin Name: SEO Redirection
 Plugin URI: http://www.clogica.com
 Description: By this plugin you can manage all your website redirection types easily.
 Author: Fakhri Alsadi
-Version: 2.5
+Version: 2.6
 Author URI: http://www.clogica.com
 */
 
@@ -490,7 +490,11 @@ global $util;
 
 //-----------------------------------------------------
 function WPSR_install(){
-		global $wpdb,$table_prefix, $util ;
+		global $wpdb,$table_prefix ;
+		
+		$util= new clogica_util();
+		$util->set_option_gruop(WP_SEO_REDIRECTION_OPTIONS);
+		$util->set_plugin_folder(basename(dirname(__FILE__)));
 	
 	$options=get_option(WP_SEO_REDIRECTION_OPTIONS);
 	if(!is_array($options))
@@ -560,16 +564,14 @@ function WPSR_install(){
 		}else
 		{
 			// if the table exists
-			$site_url = site_url();
-			$sql= " update $table_name set  redirect_from=REPLACE(redirect_from, '$site_url' , '' ) where redirect_from like '$site_url%' and redirect_from <>'$site_url' ";
-			$wpdb->query($sql);
-			$sql= " update $table_name set  redirect_from='/' where redirect_from ='$site_url' ";
-			$wpdb->query($sql);
-
-			$sql= " update $table_name set  redirect_to=REPLACE(redirect_to, '$site_url' , '' ) where redirect_to like '$site_url%' and redirect_to <>'$site_url' ";
-			$wpdb->query($sql);
-			$sql= " update $table_name set  redirect_to='/' where redirect_to ='$site_url' ";
-			$wpdb->query($sql);
+			$redirects = $wpdb->get_results(" select redirect_from,redirect_to,ID from $table_name; ");
+			foreach ($redirects as $redirect)
+			{
+				$redirect_from=$util->make_relative_url($redirect->redirect_from);
+				$redirect_to=$util->make_relative_url($redirect->redirect_to);
+				$ID=$redirect->ID;
+				$wpdb->query(" update $table_name set  redirect_from='$redirect_from',redirect_to='$redirect_to'  where ID=$ID ");
+			}
 
 		}
 		
