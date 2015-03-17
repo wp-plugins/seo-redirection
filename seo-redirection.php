@@ -25,6 +25,7 @@ add_action('wp', 'WPSR_redirect');
 add_action( 'save_post', 'WPSR_get_post_redirection');
 add_action( 'add_meta_boxes', 'adding_WPSR_custom_meta_boxes', 10, 3 );
 add_action( 'admin_head', 'WPSR_check_default_permalink' );
+add_action( 'plugins_loaded', 'WPSR_install' );
 
 register_activation_hook( __FILE__ , 'WPSR_install' );
 register_uninstall_hook( __FILE__ , 'WPSR_uninstall' ); 
