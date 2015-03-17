@@ -138,7 +138,13 @@ public function get_my_options()
 public function get_option_value($key)
 {
 	$options=$this->get_my_options();
-	return $options[$key];	
+        if(array_key_exists($key,$options))
+        {
+            return $options[$key];
+        }else
+        {
+            return '';
+        }
 }
 //---------------------------------------------------- 
 

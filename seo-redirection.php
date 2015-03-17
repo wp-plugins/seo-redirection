@@ -15,6 +15,11 @@ if(!defined('WP_SEO_REDIRECTION_OPTIONS'))
 {
 	define( 'WP_SEO_REDIRECTION_OPTIONS', 'wp-seo-redirection-group' );
 }
+
+
+$WP_SEO_REDIRECTION_VERSION = '2.6';
+
+
 $util= new clogica_util();
 $util->set_option_gruop(WP_SEO_REDIRECTION_OPTIONS);
 $util->set_plugin_folder(basename(dirname(__FILE__)));
@@ -25,9 +30,9 @@ add_action('wp', 'WPSR_redirect');
 add_action( 'save_post', 'WPSR_get_post_redirection');
 add_action( 'add_meta_boxes', 'adding_WPSR_custom_meta_boxes', 10, 3 );
 add_action( 'admin_head', 'WPSR_check_default_permalink' );
-add_action( 'plugins_loaded', 'WPSR_install' );
+add_action( 'plugins_loaded', 'WPSR_upgrade' );
 
-register_activation_hook( __FILE__ , 'WPSR_install' );
+register_activation_hook( __FILE__ , 'WPSR_upgrade' );
 register_uninstall_hook( __FILE__ , 'WPSR_uninstall' ); 
 
 /////////////////////////////////////////////////////////////////////////
@@ -487,6 +492,16 @@ global $util;
 	
 	echo "</div></div></div>";
 
+}
+
+
+function WPSR_upgrade(){
+	global $util,$WP_SEO_REDIRECTION_VERSION;
+	if($util->get_option_value('plugin_version')!= $WP_SEO_REDIRECTION_VERSION)
+	{
+		WPSR_install();
+		$util->update_option('plugin_version', $WP_SEO_REDIRECTION_VERSION);
+	}
 }
 
 //-----------------------------------------------------
