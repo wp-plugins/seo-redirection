@@ -213,8 +213,11 @@ public function delete_my_options()
 			$site_url = $this->remove_url_http_www(site_url());
 			if(stripos($url,$site_url) !==false)
 			{
-				$url = $this->remove_url_http_www($url);
-				$url = str_ireplace($site_url,'',$url);
+				$url_no_www = $this->remove_url_http_www($url);
+				if(strtolower(substr($url_no_www,0,strlen($site_url))) == strtolower($site_url))
+				{
+					$url = str_ireplace($site_url,'',$url_no_www);
+				}
 			}
 			if($url=="")
 			{
