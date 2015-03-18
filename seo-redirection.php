@@ -16,8 +16,10 @@ if(!defined('WP_SEO_REDIRECTION_OPTIONS'))
 	define( 'WP_SEO_REDIRECTION_OPTIONS', 'wp-seo-redirection-group' );
 }
 
-
-$WP_SEO_REDIRECTION_VERSION = '2.6';
+if(!defined('WP_SEO_REDIRECTION_VERSION'))
+{
+	define( 'WP_SEO_REDIRECTION_VERSION', '2.6');
+}
 
 
 $util= new clogica_util();
@@ -496,11 +498,15 @@ global $util;
 
 
 function WPSR_upgrade(){
-	global $util,$WP_SEO_REDIRECTION_VERSION;
-	if($util->get_option_value('plugin_version')!= $WP_SEO_REDIRECTION_VERSION)
+
+	$util= new clogica_util();
+	$util->set_option_gruop(WP_SEO_REDIRECTION_OPTIONS);
+	$util->set_plugin_folder(basename(dirname(__FILE__)));
+		
+	if($util->get_option_value('plugin_version')!= WP_SEO_REDIRECTION_VERSION)
 	{
 		WPSR_install();
-		$util->update_option('plugin_version', $WP_SEO_REDIRECTION_VERSION);
+		$util->update_option('plugin_version', WP_SEO_REDIRECTION_VERSION);
 	}
 }
 
