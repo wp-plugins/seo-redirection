@@ -325,9 +325,9 @@ function WPSR_log_redirection_history($rID,$postID, $rfrom, $rto, $rtype,$rsrc)
 //-------------------------------------------------------------
 
 function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
-{ 
-    global $util;
-    
+{
+	global $util;
+
         if($redirect_to == $redirect_from)
         return 0;
 
@@ -338,9 +338,11 @@ function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
 
 			if($obj->redirect_from_folder_settings=='2' || $obj->redirect_from_folder_settings=='3')
 			{
-				$difference=str_ireplace($obj->redirect_from,'',$redirect_from);
-				if($difference!=$redirect_from)
-				$redirect_to = $redirect_to . $difference;
+				if(strlen($redirect_from) > strlen($obj->redirect_from))
+				{
+					$difference=substr($redirect_from,intval(strlen($obj->redirect_from)-strlen($redirect_from)));
+					$redirect_to = $redirect_to . $difference;
+				}
 			}
 
 		}
@@ -403,18 +405,29 @@ global $wpdb,$table_prefix,$util ;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 $permalink= urldecode($util->get_current_relative_url());
 
+	$permalink_alternative="";
+	if(substr($permalink,-1)=='/')
+	{
+		$permalink_alternative = substr($permalink,0,intval(strlen($permalink)-1));
+	}else
+	{
+		$permalink_alternative = $permalink . '/';
+	}
+
+	$permalink_options = "(redirect_from='$permalink' or redirect_from='$permalink_alternative' )";
+	$permalink_regex_options = "('$permalink' regexp regex or '$permalink_alternative'  regexp regex )";
 
 if($util->get_option_value('plugin_status')=='1'){
 if (($util->get_option_value('redirect_control_panel')!='1') || ($util->get_option_value('redirect_control_panel')=='1' && !preg_match('/^' . str_replace('/','\/', get_admin_url()) . '/i', $permalink) && !preg_match('/^' . str_replace('/','\/', site_url()) . '\/wp-login.php/i', $permalink))){
 
 
-$theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex='' and redirect_from='$permalink'  ");
+$theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex='' and $permalink_options  ");
 
 	if($wpdb->num_rows>0 && $theurl->redirect_to!=''){
     	WPSR_make_redirect($theurl->redirect_to,$theurl->redirect_type,$permalink,$theurl);
 	}
 
-$theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex<>'' and '$permalink' regexp regex order by LENGTH(regex) desc ");
+$theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex<>'' and $permalink_regex_options order by LENGTH(regex) desc ");
 	if($wpdb->num_rows>0 && $theurl->redirect_to!=''){
 	WPSR_make_redirect($theurl->redirect_to,$theurl->redirect_type,$permalink,$theurl);
 	}
