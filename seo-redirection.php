@@ -484,7 +484,7 @@ $SR_redirect_cache = new clogica_SR_redirect_cache();
 function WPSR_header_code()
 {
 
-	if( is_admin() ) {
+	if( is_admin() && array_key_exists('page',$_GET) && $_GET['page']=='seo-redirection.php' ) {
 	wp_register_style( 'c_admin_css_common', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/common/' . "style.css" );
 	wp_register_style( 'c_admin_css_custom', WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/custom/' . "style.css" );
 	wp_enqueue_script('jquery');
