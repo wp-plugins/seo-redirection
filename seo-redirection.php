@@ -717,6 +717,9 @@ function WPSR_uninstall(){
         
         $table_name = $table_prefix . 'WP_SEO_Redirection';
         $wpdb->query(" DROP TABLE `$table_name`  ");
+		
+		$table_name = $table_prefix . 'WP_SEO_Cache';
+		$wpdb->query(" DROP TABLE `$table_name`  ");
         
         $table_name = $table_prefix . 'WP_SEO_404_links';
         $wpdb->query(" DROP TABLE `$table_name`  ");
