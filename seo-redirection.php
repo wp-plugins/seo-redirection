@@ -415,6 +415,11 @@ function WPSR_redirect()
 global $wpdb,$table_prefix,$util ;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 $permalink= urldecode($util->get_current_relative_url());
+if(substr($permalink,0,1)==":")
+{
+	$first_slash=stripos($permalink,"/");
+	$permalink = substr($permalink,$first_slash,strlen($permalink)-$first_slash);
+}
 $post_cache_result="";
 $SR_redirect_cache = new clogica_SR_redirect_cache();
 
@@ -717,10 +722,10 @@ function WPSR_uninstall(){
         
         $table_name = $table_prefix . 'WP_SEO_Redirection';
         $wpdb->query(" DROP TABLE `$table_name`  ");
-		
+
 		$table_name = $table_prefix . 'WP_SEO_Cache';
 		$wpdb->query(" DROP TABLE `$table_name`  ");
-        
+
         $table_name = $table_prefix . 'WP_SEO_404_links';
         $wpdb->query(" DROP TABLE `$table_name`  ");
         

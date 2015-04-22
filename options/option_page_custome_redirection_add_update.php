@@ -87,7 +87,7 @@ if($util->get('page404')!='')
 		
 		 *  <font style="font-size: 12px;color:#a7a7a7">(Starting with 'http://')</font>
 		 </div>
-		 <? if($util->get('page404')!='') echo $redirect_from; ?>
+		 <?php if($util->get('page404')!='') echo $redirect_from; ?>
 		</td>
 	</tr>
 	<tr>
