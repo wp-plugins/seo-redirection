@@ -243,7 +243,16 @@ public function delete_my_options()
 			return $this->make_relative_url($this->get_current_URL());
 		}
 //----------------------------------------------------
-
+		public function is_valid_url($url)
+		{
+			if(stripos($url,'://')!== false || substr($url,0, 1)=='/')
+			{
+				return true;
+			}else{
+				return false;
+			}
+		}
+//----------------------------------------------------
 
 public function get_current_parameters($remove_parameter="")
 {	

@@ -110,8 +110,3 @@ function c_optimize_tables()
 	$wpdb->query(" OPTIMIZE TABLE  $table_name1,$table_name2,$table_name3 ");
 }}
 
-	
-	
-
-     
-?>

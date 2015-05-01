@@ -276,8 +276,13 @@ var rto=document.getElementById('redirect_to').value;
 		document.getElementById('redirect_to').focus();
 		return false;		
 	}
-		
-	
+
+	if(!(rto.indexOf('://')!=-1 || rto.substr(0,1)=='/'))
+	{
+		alert('Invalid redirect target URL!');
+		document.getElementById('redirect_to').focus();
+		return false;
+	}
 	
 	return true;
 }

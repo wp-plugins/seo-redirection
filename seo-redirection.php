@@ -332,7 +332,7 @@ function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
 {
 	global $util;
 
-        if($redirect_to == $redirect_from)
+        if($redirect_to == $redirect_from || !$util->is_valid_url($redirect_to))
         return 0;
 
 	if(is_object($obj) && $obj->redirect_to_type=='Folder' && $obj->redirect_to_folder_settings=='2' ){
