@@ -25,7 +25,7 @@ By this plugin you can build redirections easily for your site, you can set up a
 <li>Reflect changes to all links when you move your site or change the domain name</li> 
 <li>Friendly GUI and easy to use.</li>  
 </ul>
-<h3><a target="_blank" href="http://codecanyon.net/item/seo-redirection-pro/7596396?ref=fakhri">
+<h3><a target="_blank" href="http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin">
 See the amazing features in the PRO version</a></h3>
 
 
