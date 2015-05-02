@@ -529,10 +529,13 @@ global $util;
 	$mytabs->run();
     
     
-	echo "<div class='procontainer'><div class='ad'>";
+	echo "<div class='procontainer'><div>";
+		
+	echo '<h3>if you concerned about <font color="#FF0000">more performance</font> and
+<font color="#FF0000">new features</font> you can
+<a target="_blank" href="http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin">
+take a look into this plugin </a></h3>';	
 	
-	$propath = $util->get_plugin_url('custom/images/buttons.png');	
-	echo '<a target="_blank" href="http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin" ><img border="0" src="' . $propath . '"></a>';	
 	echo "</div></div></div>";
 
 }
