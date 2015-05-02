@@ -529,7 +529,7 @@ global $util;
 	$mytabs->run();
     
     
-	echo "<div class='procontainer'><div>";
+	echo "<div class='procontainer'><div style='padding-left:10px; padding-right:10px'>";
 		
 	echo '<h3>if you concerned about <font color="#FF0000">more performance</font> and
 <font color="#FF0000">new features</font> you can
