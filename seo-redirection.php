@@ -4,7 +4,7 @@ Plugin Name: SEO Redirection
 Plugin URI: http://www.clogica.com
 Description: By this plugin you can manage all your website redirection types easily.
 Author: Fakhri Alsadi
-Version: 2.7
+Version: 2.8
 Author URI: http://www.clogica.com
 */
 
@@ -521,22 +521,14 @@ global $util;
 	$mytabs = new phptab();
 	
 	$mytabs->set_ignore_parameter(array('del','search','page_num','add','edit','page404'));
-	$mytabs->add_file_tab('cutom','Custom Redirections','option_page_custome_redirection.php','file');
-	$mytabs->add_file_tab('posts','Post Redirections','option_page_post_redirection_list.php','file');
+	$mytabs->add_file_tab('cutom','Custom Redirects','option_page_custome_redirection.php','file');
+	$mytabs->add_file_tab('posts','Post Redirects','option_page_post_redirection_list.php','file');
 	$mytabs->add_file_tab('404','404 Error Links','option_page_404.php','file');
-	$mytabs->add_file_tab('history','Redirection History','option_page_history.php','file');
+	$mytabs->add_file_tab('history','History','option_page_history.php','file');
 	$mytabs->add_file_tab('goptions','Options','option_page_goptions.php','file');
+	$mytabs->add_file_tab('premium','<span style="color:brown;"><b>Premium Features</b></span>','premium.php','file');
 	$mytabs->run();
     
-    
-	echo "<div class='procontainer'><div style='padding-left:10px; padding-right:10px'>";
-		
-	echo '<h3>if you concerned about <font color="#FF0000">more performance</font> and
-<font color="#FF0000">new features</font> you can
-<a target="_blank" href="http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin">
-take a look into this plugin </a></h3>';	
-	
-	echo "</div></div></div>";
 
 }
 
