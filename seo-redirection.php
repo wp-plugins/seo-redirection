@@ -20,7 +20,7 @@ if(!defined('WP_SEO_REDIRECTION_OPTIONS'))
 
 if(!defined('WP_SEO_REDIRECTION_VERSION'))
 {
-	define( 'WP_SEO_REDIRECTION_VERSION', '2.7');
+	define( 'WP_SEO_REDIRECTION_VERSION', '2.8');
 }
 
 
