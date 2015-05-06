@@ -4,7 +4,7 @@ Plugin Name: SEO Redirection
 Plugin URI: http://www.clogica.com
 Description: By this plugin you can manage all your website redirection types easily.
 Author: Fakhri Alsadi
-Version: 2.8
+Version: 2.7
 Author URI: http://www.clogica.com
 */
 
@@ -526,7 +526,7 @@ global $util;
 	$mytabs->add_file_tab('404','404 Error Links','option_page_404.php','file');
 	$mytabs->add_file_tab('history','History','option_page_history.php','file');
 	$mytabs->add_file_tab('goptions','Options','option_page_goptions.php','file');
-	$mytabs->add_file_tab('premium','<span style="color:brown;"><b>Premium Features</b></span>','premium.php','file');
+	$mytabs->add_file_tab('premium','<span style="color:brown;"><b>&#9658; Premium Features</b></span>','premium.php','file');
 	$mytabs->run();
     
 
