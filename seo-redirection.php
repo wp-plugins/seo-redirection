@@ -30,7 +30,7 @@ $util->set_plugin_folder(basename(dirname(__FILE__)));
 
 add_action('admin_enqueue_scripts', 'WPSR_header_code');
 add_action('admin_menu', 'WPSR_admin_menu');
-add_action('wp', 'WPSR_redirect');
+add_action('wp', 'WPSR_redirect',1);
 add_action( 'save_post', 'WPSR_get_post_redirection');
 add_action( 'add_meta_boxes', 'adding_WPSR_custom_meta_boxes', 10, 3 );
 add_action( 'admin_head', 'WPSR_check_default_permalink' );
@@ -411,17 +411,18 @@ function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
 
 function WPSR_redirect()
 {
-
 global $wpdb,$table_prefix,$util ;
-$table_name = $table_prefix . 'WP_SEO_Redirection';
-$permalink= urldecode($util->get_current_relative_url());
-if(substr($permalink,0,1)==":")
-{
-	$first_slash=stripos($permalink,"/");
-	$permalink = substr($permalink,$first_slash,strlen($permalink)-$first_slash);
-}
-$post_cache_result="";
-$SR_redirect_cache = new clogica_SR_redirect_cache();
+if($util->get_option_value('plugin_status')=='1'){
+
+	$table_name = $table_prefix . 'WP_SEO_Redirection';
+	$permalink= urldecode($util->get_current_relative_url());
+	if(substr($permalink,0,1)==":")
+	{
+		$first_slash=stripos($permalink,"/");
+		$permalink = substr($permalink,$first_slash,strlen($permalink)-$first_slash);
+	}
+	$post_cache_result="";
+	$SR_redirect_cache = new clogica_SR_redirect_cache();
 
 	if(is_singular())
 	{
@@ -444,7 +445,7 @@ $SR_redirect_cache = new clogica_SR_redirect_cache();
 	$permalink_options = "(redirect_from='$permalink' or redirect_from='$permalink_alternative' )";
 	$permalink_regex_options = "('$permalink' regexp regex or '$permalink_alternative'  regexp regex )";
 
-	if($util->get_option_value('plugin_status')=='1'){
+
 		if (($util->get_option_value('redirect_control_panel')!='1') || ($util->get_option_value('redirect_control_panel')=='1' && !preg_match('/^' . str_replace('/','\/', get_admin_url()) . '/i', $permalink) && !preg_match('/^' . str_replace('/','\/', site_url()) . '\/wp-login.php/i', $permalink))){
 
 
@@ -475,13 +476,14 @@ $SR_redirect_cache = new clogica_SR_redirect_cache();
 				}
 			}
 		}
-	}
+
 
 	if(is_singular() && $post_cache_result == 'not_found')
 	{
 		$SR_redirect_cache->add_redirect(get_the_ID(),0,'',0);
 	}
 
+}
 }
 
 //---------------------------------------------------------------
