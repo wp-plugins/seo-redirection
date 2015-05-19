@@ -112,6 +112,8 @@ var sword = document.getElementById('search').value;
 	
 		
 ?>
+<div>* Too many 404 errors? <a target="_blank" href="http://www.clogica.com/kb/too-many-404-errors.htm">click here to see why?</a></div>
+<br/><br/>
 <form method="POST">
 <h3>Unknown 404 Links Redirection<hr></h3>	
  
