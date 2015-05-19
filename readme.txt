@@ -108,6 +108,6 @@ Go to Discvered 404 Error Pages tab, choose any 404 error page and choose 'Redir
 = 2.6 =
 * Some hot fixes.
 == 2.8 ==
-* Redirect loop prevention
+* Redirect loop prevention.
 * The Ad for the premium version has become in a separate tab not in all the plugin screens as it may disturb some people.
-* Some other fixes
+* Some other fixes.
