@@ -27,5 +27,6 @@ $imgpath= $util->get_plugin_url().'custom/images/';
 <p style="text-align: center"><a href="http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin?src=freeversiom" target="_blank"><img src="<?php echo $imgpath ?>control_panel.png"></a></p>
 <p style="text-align: center"><a href="http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin?src=freeversiom" target="_blank"><img src="<?php echo $imgpath ?>help_center.png"></a></p>
 <p style="text-align: center"><a href="http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin?src=freeversiom" target="_blank"><img src="<?php echo $imgpath ?>other_features.png"></a></p>
+<p style="text-align: center"><a href="http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin?src=freeversiom" target="_blank"><img src="<?php echo $imgpath ?>circles.png"></a></p>
 
 <p style="text-align: center"><font size="5"><a href="http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin?src=freeversiom" target="_blank">Click Here for Pricing & Review</a></font></p>
