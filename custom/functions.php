@@ -1,6 +1,5 @@
 <?php
 // custom functions
-
 if(!function_exists("SEOR_make_absolute_url")) {
 	function SEOR_make_absolute_url($url)
 	{

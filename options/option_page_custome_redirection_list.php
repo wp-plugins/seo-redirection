@@ -3,8 +3,6 @@
 global $wpdb,$table_prefix,$util;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 
-
-		
 	if($util->get('del')!='')
 	{
 		$delid=intval($util->get('del'));
@@ -40,7 +38,6 @@ var sword = document.getElementById('search').value;
 </script>
 
 <div class="link_buttons">
-
 <table border="0" width="100%">
 	<tr>
 		<td width="110"><a href="<?php echo $rlink?>&add=1"><div class="add_link">Add New</div></a></div></td>

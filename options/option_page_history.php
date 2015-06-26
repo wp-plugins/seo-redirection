@@ -19,9 +19,7 @@ if($util->get_option_value('history_status')!='1')
 ?>
 
 <script type="text/javascript">
-
 //---------------------------------------------------------
-
 function go_search(){
 var sword = document.getElementById('search').value;
 	if(sword!=''){

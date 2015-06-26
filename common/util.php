@@ -12,7 +12,6 @@ private $option_group_name='clogica_option_group';
 private $plugin_folder='plugin_folder_name'; 
 public $mytabs;
 
-
 public function get($key,$type='text')
 {
 	if(array_key_exists($key,$_GET))

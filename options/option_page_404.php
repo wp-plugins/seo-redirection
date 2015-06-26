@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 global $wpdb,$table_prefix,$util;
 
@@ -25,8 +25,6 @@ if($util->get_option_value('p404_discovery_status')!='1')
 
 ?>
 
-
-
 <script type="text/javascript">
 
 //---------------------------------------------------------
@@ -44,9 +42,6 @@ var sword = document.getElementById('search').value;
 }
 
 </script>
-
-
-
 
 <h3>New Discovered 404 links<hr></h3>
 <div class="link_buttons">

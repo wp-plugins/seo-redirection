@@ -125,9 +125,3 @@ if($util->there_is_cache()!='')
   {
   	include "option_page_custome_redirection_list.php";
   }
-
-
-
-?>
-
-

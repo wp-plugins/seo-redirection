@@ -1,7 +1,4 @@
 <?php
-
-
-
 /*
 Author: Fakhri Alsadi
 Date: 16-7-2010

@@ -12,7 +12,6 @@ require_once ('common/controls.php');
 require_once ('custom/controls.php');
 require_once ('custom/controls/cf.SR_redirect_cache.class.php');
 
-
 if(!defined('WP_SEO_REDIRECTION_OPTIONS'))
 {
 	define( 'WP_SEO_REDIRECTION_OPTIONS', 'wp-seo-redirection-group' );
@@ -22,7 +21,6 @@ if(!defined('WP_SEO_REDIRECTION_VERSION'))
 {
 	define( 'WP_SEO_REDIRECTION_VERSION', '2.8');
 }
-
 
 $util= new clogica_util();
 $util->set_option_gruop(WP_SEO_REDIRECTION_OPTIONS);
@@ -58,13 +56,11 @@ function adding_WPSR_custom_meta_boxes() {
     	}
 
 	}
-
 }
 
 
 function WPSR_render_meta_box($post)
 {
-
 global $wpdb,$table_prefix,$util ;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 

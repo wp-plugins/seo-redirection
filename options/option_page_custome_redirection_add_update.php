@@ -54,7 +54,6 @@ if($util->get('page404')!='')
 ?>
 <form onsubmit="return check_from();" method="POST" id="myform" action="<?php echo $util->get_current_parameters(array('add','edit','page404'));?>">
 <table class="cform" width="100%">
-
 	<tr>
 	<td class="label">Redirection status:</td>
 	<td>		<select size="1" name="enabled"  id="enabled">

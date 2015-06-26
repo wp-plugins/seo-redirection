@@ -3,8 +3,6 @@
 global $wpdb,$table_prefix,$util;
 $table_name = $table_prefix . 'WP_SEO_Redirection';
 
-
-		
 	if($util->get('del')!='')
 	{
 		$delid=intval($util->get('del'));

@@ -1,5 +1,4 @@
 <?php
-
 if(!class_exists('clogica_SR_redirect_cache')){
     class clogica_SR_redirect_cache {
 
