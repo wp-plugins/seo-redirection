@@ -7,7 +7,17 @@ if(!class_exists('clogica_SR_redirect_cache')){
         {
             global $wpdb,$table_prefix;
             $table_name = $table_prefix . 'WP_SEO_Cache';
-            $wpdb->query(" insert IGNORE into $table_name(ID,is_redirected,redirect_to,redirect_type) values('$post_id','$is_redirected','$redirect_to','$redirect_type'); ");
+            
+            $wpdb->query($wpdb->prepare(
+                "
+                INSERT IGNORE INTO $table_name
+                (ID,is_redirected,redirect_to,redirect_type) 
+                VALUES
+                (%d, %s, %s, %s)
+                ", 
+                $post_id, $is_redirected, $redirect_to, $redirect_type
+
+            ));
         }
 
         /*- Fetch Redirect ----------------------------------------*/
@@ -15,7 +25,13 @@ if(!class_exists('clogica_SR_redirect_cache')){
         {
             global $wpdb,$table_prefix;
             $table_name = $table_prefix . 'WP_SEO_Cache';
-            return $wpdb->get_row("select *  from  $table_name where ID='$post_id'; ");
+            
+            return $wpdb->get_row($wpdb->prepare(
+                "
+                SELECT * FROM $table_name WHERE ID = %d
+                ",
+                $post_id
+            ));
         }
 
         /*- Redirect Cache ----------------------------------------*/
@@ -44,7 +60,12 @@ if(!class_exists('clogica_SR_redirect_cache')){
         {
             global $wpdb,$table_prefix;
             $table_name = $table_prefix . 'WP_SEO_Cache';
-            return $wpdb->get_var("delete from  $table_name where ID='$post_id'; ");
+            return $wpdb->get_var($wpdb->prepare(
+                "
+                DELETE FROM $table_name WHERE ID = %d
+                ",
+                $post_id
+            ));
         }
 
         /*- Free Cache ----------------------------------------*/
@@ -52,7 +73,7 @@ if(!class_exists('clogica_SR_redirect_cache')){
         {
             global $wpdb,$table_prefix;
             $table_name = $table_prefix . 'WP_SEO_Cache';
-            $wpdb->query(" TRUNCATE TABLE  $table_name ");
+            $wpdb->query("TRUNCATE TABLE $table_name ");
         }
 
         /*- Cache Count ----------------------------------------*/
@@ -60,7 +81,7 @@ if(!class_exists('clogica_SR_redirect_cache')){
         {
             global $wpdb,$table_prefix;
             $table_name = $table_prefix . 'WP_SEO_Cache';
-            return $wpdb->get_var("select count(*) as cnt from  $table_name where 1;  ");
+            return $wpdb->get_var("SELECT COUNT(*) AS cnt FROM $table_name WHERE 1");
         }
 
     }}

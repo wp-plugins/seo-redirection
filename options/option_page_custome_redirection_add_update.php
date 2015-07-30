@@ -17,7 +17,14 @@ if($util->get('add')!='')
 echo '<h3>Add New Custom Redirection<hr></h3>';
 else if(intval($util->get('edit'))>0){
 echo '<h3>Update Existing Redirection<hr></h3>';
-$item = $wpdb->get_row(" select * from $table_name where ID=". intval($util->get('edit')));
+$item = $wpdb->get_row($wpdb->prepare(
+		"
+		SELECT * FROM $table_name
+		WHERE ID = %d
+		",
+		intval($util->get('edit'))
+	));
+
     if($wpdb->num_rows==0)
     {
        $utilpro->info_option_msg("Sorry, this redirect rule is not found, it may deleted by the user!");
@@ -44,7 +51,13 @@ header("location: .");
 if($util->get('page404')!='')
 {
 	$table_name_404 = $table_prefix . 'WP_SEO_404_links';
-	$i404 = $wpdb->get_row(" select link from $table_name_404 where ID=". intval($util->get('page404')));
+	$i404 = $wpdb->get_row($wpdb->prepare(
+		"
+		SELECT link FROM $table_name_404 where ID = %d
+		",
+		intval($util->get('page404'))
+	));
+
 	if($i404->link!='')
 	$redirect_from=$i404->link;
 	else
