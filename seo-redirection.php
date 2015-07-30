@@ -4,7 +4,7 @@ Plugin Name: SEO Redirection
 Plugin URI: http://www.clogica.com
 Description: By this plugin you can manage all your website redirection types easily.
 Author: Fakhri Alsadi
-Version: 2.8
+Version: 9999
 Author URI: http://www.clogica.com
 */
 
@@ -82,7 +82,14 @@ $table_name = $table_prefix . 'WP_SEO_Redirection';
 		
 
 
-$theurl = $wpdb->get_row(" select redirect_to,redirect_from from $table_name where postID='$postID'  ");
+$theurl = $wpdb->get_row($wpdb->prepare(
+	"
+	SELECT redirect_to,redirect_from
+	FROM $table_name
+	WHERE postID = %d
+	",
+	$postID
+));
 
 $urlredirect_to='';
    if($wpdb->num_rows>0)
@@ -91,9 +98,26 @@ $urlredirect_to='';
 if($urlredirect_to !='' && $theurl->redirect_from != $permalink )
 	{
 	// the post_name field changed!
-	$wpdb->query(" update $table_name set redirect_from='$permalink'  where postID='$postID' ");
+
+	$wpdb->query($wpdb->prepare(
+		"
+			UPDATE $table_name 
+			SET redirect_from = %s
+			WHERE postID = %d
+		",
+		$permalink, $postID
+	));
+
 	if($util->get_option_value('reflect_modifications')=='1'){
-		$wpdb->query(" update $table_name set redirect_to='$permalink'  where redirect_to='" . $theurl->redirect_from . "' ");
+		$wpdb->query($wpdb->prepare(
+			"
+				UPDATE $table_name 
+				SET redirect_to = %s
+				WHERE redirect_to = %s
+			",
+			$permalink, $theurl->redirect_from
+		));
+
 		$util->info_option_msg('<b>SEO Redirection</b> has detected a change in Permalink, this will be reflected to the redirection records!');
 	}
 	//-------------------------------------------
@@ -254,25 +278,65 @@ $redirect_to=$util->post('wp_seo_redirection_url');
 
 if($redirect_to!=''){
 
-
-	$wpdb->get_results("select ID from $table_name where postID='$post_id'  ");
+	$wpdb->get_results($wpdb->prepare(
+		"
+		SELECT ID FROM $table_name
+		WHERE postID = %d
+		",
+		$post_id
+	));
 
 	if ($wpdb->num_rows > 0) {
 
-	$sql = "update $table_name set redirect_to='$redirect_to',redirect_from='$redirect_from',redirect_type='301',url_type=2 where postID='$post_id'";
-		$wpdb->query($sql);
+		$wpdb->query($wpdb->prepare(
+			"
+			UPDATE $table_name
+			SET redirect_to = %s, redirect_from = %s, redirect_type = '301', url_type = 2
+			WHE
+			RE postID = %d
+			",
+			$redirect_to, $redirect_from, $post_id
+		));
 
 	}else
 	{
-		$wpdb->query("delete from $table_name where redirect_from='$redirect_from'");
-		$sql = "insert into $table_name(redirect_from,redirect_to,redirect_type,url_type,postID) values ('$redirect_from','$redirect_to','301',2,'$post_id') ";
-		$wpdb->query($sql);
+		$wpdb->query($wpdb->prepare(
+			"
+			DELETE FROM $table_name
+			WHERE redirect_from = %s
+			",
+			$redirect_from
+		));
+
+		$wpdb->query($wpdb->prepare(
+			"
+			INSERT INTO $table_name
+			(redirect_from,redirect_to,redirect_type,url_type,postID)
+			VALUES
+			(%s, %s, '301', 2, %d)
+			",
+			$redirect_from, $redirect_to, $post_id
+		));
 	}
 
 
-	}else
-	{
-	$wpdb->query("delete from $table_name where postID='$post_id'");
+	} else {
+		$wpdb->query($wpdb->prepare(
+			"
+			DELETE FROM $table_name
+			WHERE postID = %d
+			",
+			$post_id
+		));
+
+
+		$wpdb->query($wpdb->prepare(
+			"
+			DELETE FROM $table_name
+			where postID = %d
+			",
+			$post_id
+		));
 	}
 
 	$SR_redirect_cache = new clogica_SR_redirect_cache();
@@ -295,7 +359,17 @@ function WPSR_log_404_redirection($link)
 	$browser=$util->get_visitor_Browser();
 
 	if($os!='Unknown' || $browser!='Unknown'){
-		$wpdb->query(" insert IGNORE into $table_name(ctime,link,referrer,ip,country,os,browser) values(NOW(),'$link','$referrer','$ip','$country','$os','$browser') ");
+
+		$wpdb->query($wpdb->prepare(
+			"
+			INSERT IGNORE INTO $table_name
+			(ctime,link,referrer,ip,country,os,browser) 
+			VALUES
+			(NOW(), %s, %s, %s, %s, %s, %s)
+			",
+			$link, $referrer, $ip, $country, $os, $browser
+		));
+
 	}
 }
 
@@ -312,13 +386,21 @@ function WPSR_log_redirection_history($rID,$postID, $rfrom, $rto, $rtype,$rsrc)
 	$country=$util->get_visitor_country();
 	$os=$util->get_visitor_OS();
 	$browser=$util->get_visitor_Browser();
+  
+	$wpdb->query($wpdb->prepare(
+		"
+		INSERT INTO $table_name
+		(rID,postID,rfrom,rto,rtype,rsrc,ctime,referrer,ip,country,os,browser) 
+		VALUES
+		(%d, %d, %s, %s, %s, %s, NOW(), %s, %s, %s, %s, %s)
+		",
+		$rID, $postID, $rfrom, $rto, $rtype, $rsrc, $referrer, $ip, $country, $os, $browser
+	));
 
-	$wpdb->query(" insert into $table_name(rID,postID,rfrom,rto,rtype,rsrc,ctime,referrer,ip,country,os,browser) values('$rID','$postID','$rfrom','$rto','$rtype','$rsrc',NOW(),'$referrer','$ip','$country','$os','$browser') ");
-    
     $limit= $util->get_option_value('history_limit');
     
     $expdate = date('Y-n-j', time() - (intval($limit) * 24 * 60 * 60));
-    $wpdb->query("delete FROM $table_name WHERE date_format(date(ctime),'%Y-%m-%d') < date_format(date('$expdate'),'%Y-%m-%d')");
+    $wpdb->query("DELETE FROM $table_name WHERE date_format(date(ctime),'%Y-%m-%d') < date_format(date('$expdate'),'%Y-%m-%d')");
 
 }
 
@@ -438,20 +520,34 @@ if($util->get_option_value('plugin_status')=='1'){
 		$permalink_alternative = $permalink . '/';
 	}
 
-	$permalink_options = "(redirect_from='$permalink' or redirect_from='$permalink_alternative' )";
-	$permalink_regex_options = "('$permalink' regexp regex or '$permalink_alternative'  regexp regex )";
-
-
 		if (($util->get_option_value('redirect_control_panel')!='1') || ($util->get_option_value('redirect_control_panel')=='1' && !preg_match('/^' . str_replace('/','\/', get_admin_url()) . '/i', $permalink) && !preg_match('/^' . str_replace('/','\/', site_url()) . '\/wp-login.php/i', $permalink))){
 
 
-		$theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex='' and $permalink_options  ");
+		$theurl = $wpdb->get_row($wpdb->prepare(
+			"
+			SELECT * FROM $table_name
+			WHERE enabled=1 
+				AND regex=''
+				AND (redirect_from = %s or redirect_from = %s )
+			",
+			$permalink, $permalink_alternative
+		));
 
 			if($wpdb->num_rows>0 && $theurl->redirect_to!=''){
 				WPSR_make_redirect($theurl->redirect_to,$theurl->redirect_type,$permalink,$theurl);
 			}
 
-		$theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex<>'' and $permalink_regex_options order by LENGTH(regex) desc ");
+		$theurl = $wpdb->get_row($wpdb->prepare(
+			"
+			SELECT * FROM $table_name 
+			WHERE enabled=1 
+				AND regex<>'' 
+				AND (%s regexp regex OR %s regexp regex ) 
+			ORDER BY LENGTH(regex) DESC
+			",
+			$permalink, $permalink_alternative
+		));
+
 			if($wpdb->num_rows>0 && $theurl->redirect_to!=''){
 			WPSR_make_redirect($theurl->redirect_to,$theurl->redirect_type,$permalink,$theurl);
 			}
@@ -626,7 +722,15 @@ function WPSR_install(){
 				$redirect_from=$util->make_relative_url($redirect->redirect_from);
 				$redirect_to=$util->make_relative_url($redirect->redirect_to);
 				$ID=$redirect->ID;
-				$wpdb->query(" update $table_name set  redirect_from='$redirect_from',redirect_to='$redirect_to'  where ID=$ID ");
+
+				$wpdb->query($wpdb->prepare(
+					" 
+					UPDATE $table_name 
+					SET redirect_from = %s,redirect_to = %s
+					WHERE ID = %d
+					",
+					$redirect_from, $redirect_to, $ID
+				));
 			}
 
 		}

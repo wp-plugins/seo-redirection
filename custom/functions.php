@@ -72,7 +72,7 @@ function c_clear_redirection_history()
 {
 	global $wpdb,$table_prefix;
 	$table_name = $table_prefix . 'WP_SEO_Redirection_LOG'; 
-	$wpdb->query(" TRUNCATE TABLE  $table_name ");
+	$wpdb->query("TRUNCATE TABLE $table_name");
 
 }}
 
@@ -83,7 +83,7 @@ function c_clear_all_404()
 {
 	global $wpdb,$table_prefix;
 	$table_name = $table_prefix . 'WP_SEO_404_links'; 
-	$wpdb->query(" TRUNCATE TABLE  $table_name ");
+	$wpdb->query("TRUNCATE TABLE $table_name ");
 
 }}
 	
@@ -106,6 +106,6 @@ function c_optimize_tables()
 	$table_name1 = $table_prefix . 'WP_SEO_404_links';
 	$table_name2 = $table_prefix . 'WP_SEO_Redirection';
 	$table_name3 = $table_prefix . 'WP_SEO_Redirection_LOG';
-	$wpdb->query(" OPTIMIZE TABLE  $table_name1,$table_name2,$table_name3 ");
+	$wpdb->query("OPTIMIZE TABLE $table_name1, $table_name2, $table_name3");
 }}
 

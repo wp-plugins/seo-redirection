@@ -6,8 +6,11 @@ $table_name = $table_prefix . 'WP_SEO_Redirection';
 	if($util->get('del')!='')
 	{
 		$delid=intval($util->get('del'));
-		$wpdb->query(" delete from $table_name where ID='$delid' ");	
-		
+		$wpdb->query($wpdb->prepare(
+			"DELETE FROM $table_name WHERE ID=%d",
+			$delid
+		));
+	
 		if($util->there_is_cache()!='') 
 		$util->info_option_msg("You have a cache plugin installed <b>'" . $util->there_is_cache() . "'</b>, you have to clear cache after any changes to get the changes reflected immediately! ");
 
