@@ -602,11 +602,11 @@ function WPSR_install(){
                   CREATE TABLE IF NOT EXISTS `$table_name` (
                   `ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
                   `enabled` int(1) NOT NULL DEFAULT '1',
-                  `redirect_from` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+                  `redirect_from` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
                   `redirect_from_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
                   `redirect_from_folder_settings` int(1) NOT NULL,
                   `redirect_from_subfolders` int(1) NOT NULL DEFAULT '1',
-                  `redirect_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+                  `redirect_to` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
                   `redirect_to_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
                   `redirect_to_folder_settings` int(1) NOT NULL DEFAULT '1',
                   `regex` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
