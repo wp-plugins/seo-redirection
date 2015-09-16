@@ -3,7 +3,7 @@ Contributors: fakhris
 Donate link:http://www.clogica.com/donations.htm
 Tags: redirection, seo redirection, redirect, redirected, Quick Redirect, post redirect, 301 redirect, 404 redirection, redirection plugin
 Requires at least: 3.0.1
-Tested up to: 4.3
+Tested up to: 4.3.1
 Stable tag: trunk
 
 By this plugin you can build 301,302 or 307 redirectios easily for your site, you can also monitor 404 Error Pages and redirect them. 

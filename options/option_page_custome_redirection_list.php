@@ -42,9 +42,9 @@ var sword = document.getElementById('search').value;
 	<tr>
 		<td width="110"><a href="<?php echo $rlink?>&add=1"><div class="add_link">Add New</div></a></div></td>
 		<td align="right">
-		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?php echo $util->get('search')?>" size="40">
+		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?php echo htmlentities($util->get('search'),ENT_QUOTES)?>" size="40">
 		<a onclick="go_search()" href="#"><div class="search_link">Search</div></a> 
-		<a href="<?php echo $util->get_current_parameters('search')?>"><div class="see_link">Show All</div></a>
+		<a href="<?php echo htmlentities($util->get_current_parameters('search'),ENT_QUOTES)?>"><div class="see_link">Show All</div></a>
 		</td>
 	</tr>
 </table>

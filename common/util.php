@@ -14,6 +14,7 @@ public $mytabs;
 
 public function get($key,$type='text')
 {
+
 	if(array_key_exists($key,$_GET))
 	{
 		  $unsafe_val=$_GET[$key];
@@ -39,7 +40,6 @@ public function post($key,$type='text')
 	    return '';
 	}
 }
-
 
 
 //----------------------------------------------------
@@ -258,17 +258,16 @@ public function get_current_parameters($remove_parameter="")
 	
 	if($_SERVER['QUERY_STRING']!='')
 	{
-		$qry = '?' . $_SERVER['QUERY_STRING']; 
-		
+		$qry = '?' . $_SERVER['QUERY_STRING'];
+
 		if(is_array($remove_parameter))
 		{
 			for($i=0;$i<count($remove_parameter);$i++)
 			{
-			
 				if(array_key_exists($remove_parameter[$i],$_GET)){
-    				$string_remove = '&' . $remove_parameter[$i] . "=" . $_GET[$remove_parameter[$i]];
+    				$string_remove = '&' . $remove_parameter[$i] . "=" . $this->get($remove_parameter[$i]);
     				$qry=str_replace($string_remove,"",$qry);
-    				$string_remove = '?' . $remove_parameter[$i] . "=" . $_GET[$remove_parameter[$i]];
+    				$string_remove = '?' . $remove_parameter[$i] . "=" . $this->get($remove_parameter[$i]);
     				$qry=str_replace($string_remove,"",$qry);
 				}
 			}
@@ -277,9 +276,9 @@ public function get_current_parameters($remove_parameter="")
 			if($remove_parameter!='')
 			{
 				if(array_key_exists($remove_parameter,$_GET)){
-				    $string_remove = '&' . $remove_parameter . "=" . $_GET[$remove_parameter];
+				    $string_remove = '&' . $remove_parameter . "=" . $this->get($remove_parameter);
 				    $qry=str_replace($string_remove,"",$qry);
-				    $string_remove = '?' . $remove_parameter . "=" . $_GET[$remove_parameter];
+				    $string_remove = '?' . $remove_parameter . "=" . $this->get($remove_parameter);
 				    $qry=str_replace($string_remove,"",$qry);
 				}
 			}

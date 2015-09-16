@@ -70,7 +70,7 @@ var $ignore_parameters='';
 		if(is_array($this->ignore_parameters))
 		{
 		$ignore=array_merge(array($this->parameter),$this->ignore_parameters);
-		$options_path= $util->get_current_parameters($ignore);	
+		$options_path= $util->get_current_parameters($ignore);
 		}else
 		{
 		$options_path= $util->get_current_parameters($this->parameter);

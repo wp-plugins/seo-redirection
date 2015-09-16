@@ -62,7 +62,7 @@ function c_save_404_redirection_options()
 		
  	$util->update_post_option('p404_discovery_status');
 	$util->update_post_option('p404_status');
-	$util->update_option('p404_redirect_to',$_POST['redirect_to']);		
+	$util->update_option('p404_redirect_to',$util->post('redirect_to'));
 }}
 
 //------------------------------------------------------------

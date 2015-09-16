@@ -17,7 +17,7 @@ if($util->get('add')!='')
 echo '<h3>Add New Custom Redirection<hr></h3>';
 else if(intval($util->get('edit'))>0){
 echo '<h3>Update Existing Redirection<hr></h3>';
-$item = $wpdb->get_row(" select * from $table_name where ID=". intval($util->get('edit')));
+$item = $wpdb->get_row($wpdb->prepare(" select * from $table_name where ID=%d ",$util->get('edit')));
     if($wpdb->num_rows==0)
     {
        $utilpro->info_option_msg("Sorry, this redirect rule is not found, it may deleted by the user!");

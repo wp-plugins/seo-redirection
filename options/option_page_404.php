@@ -7,7 +7,7 @@ if($util->post('redirect_to')!='')
 		 global $util;	
 		
 		$util->update_post_option('p404_status');
-		$util->update_option('p404_redirect_to',$util->make_relative_url($_POST['redirect_to']));
+		$util->update_option('p404_redirect_to',$util->make_relative_url($util->post('redirect_to')));
 		$util->success_option_msg('Options Saved!');	
 		
 		if($util->there_is_cache()!='') 
@@ -48,7 +48,7 @@ var sword = document.getElementById('search').value;
 <table border="0" width="100%">
 	<tr>
 		<td align="left">
-		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?php echo $util->get('search')?>" size="40">
+		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?php echo htmlentities($util->get('search'))?>" size="40">
 		<a onclick="go_search()" href="#"><div class="search_link">Search</div></a> 
 		<a href="<?php echo $util->get_current_parameters('search')?>"><div class="see_link">Show All</div></a>
 		</td>

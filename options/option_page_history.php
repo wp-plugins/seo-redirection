@@ -40,7 +40,7 @@ var sword = document.getElementById('search').value;
 	<tr>
 		<td width="150"><a href="<?php echo $rlink?>&del=all"><div class="del_link">Clear History</div></a></div></td>
 		<td align="right">
-		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?php echo $util->get('search')?>" size="40">
+		<input onkeyup="if (event.keyCode == 13) go_search();" style="height: 30px;" id="search" type="text" name="search" value="<?php echo htmlentities($util->get('search'),ENT_QUOTES)?>" size="40">
 		<a onclick="go_search()" href="#"><div class="search_link">Search</div></a> 
 		<a href="<?php echo $util->get_current_parameters('search')?>"><div class="see_link">Show All</div></a>
 		</td>
