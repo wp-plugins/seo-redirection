@@ -115,3 +115,5 @@ Go to Discvered 404 Error Pages tab, choose any 404 error page and choose 'Redir
 * Some other fixes.
 = 2.9 =
 * Hot fixes regarding redirecting woocommerce products
+= 3 =
+* Hot fixes
