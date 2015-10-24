@@ -1,6 +1,6 @@
 <?php
-if(!class_exists('clogica_SR_redirect_cache')){
-    class clogica_SR_redirect_cache {
+if(!class_exists('free_SR_redirect_cache')){
+    class free_SR_redirect_cache {
 
         /*- Add Redirect ----------------------------------------*/
         public function add_redirect($post_id,$is_redirected,$redirect_to,$redirect_type=301)
@@ -22,21 +22,34 @@ if(!class_exists('clogica_SR_redirect_cache')){
         public function redirect_cached($post_id)
         {
             $redirect = $this->fetch_redirect($post_id);
-            if($redirect != null)
-            {
+            $source = get_permalink($post_id); 
+            
+            if($redirect != null && $redirect->redirect_to!=$source)
+            {                
                 if($redirect->is_redirected==1)
                 {
-                    if($redirect->redirect_type != 302)
+                    if($redirect->redirect_type==301)
                     {
-                        header ('HTTP/1.1 " . $redirect->redirect_type . " Moved Permanently');
+                        header ('HTTP/1.1 301 Moved Permanently');
+                        header ("Location: " . $redirect->redirect_to);
+                        exit();
                     }
-                    header ("Location: " . $redirect->redirect_to);
-                    exit();
+                    else if($redirect->redirect_type==307)
+                    {
+                        header ('HTTP/1.0 307 Temporary Redirect');
+                        header ("Location: " . $redirect->redirect_to);
+                        exit();
+                    }
+                    else if($redirect->redirect_type==302)
+                    {
+                        header ("Location: " . $redirect->redirect_to);
+                        exit();
+                    }
                 }
-
                 return 'not_redirected';
             }
             return 'not_found';
+            
         }
 
         /*- Delete Redirect ----------------------------------------*/
@@ -61,6 +74,12 @@ if(!class_exists('clogica_SR_redirect_cache')){
             global $wpdb,$table_prefix;
             $table_name = $table_prefix . 'WP_SEO_Cache';
             return $wpdb->get_var("select count(*) as cnt from  $table_name where 1;  ");
+        }
+        
+        /* ----------------------------------------------- */
+        public static function hook_cache()
+        {
+            add_action( 'save_post', array( __CLASS__, 'free_cache' ) );            
         }
 
     }}

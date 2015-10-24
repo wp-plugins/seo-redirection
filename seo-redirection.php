@@ -4,7 +4,7 @@ Plugin Name: SEO Redirection
 Plugin URI: http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin
 Description: By this plugin you can manage all your website redirection types easily.
 Author: Fakhri Alsadi
-Version: 2.8
+Version: 2.9
 Author URI: http://www.clogica.com
 */
 
@@ -33,6 +33,7 @@ add_action( 'save_post', 'WPSR_get_post_redirection');
 add_action( 'add_meta_boxes', 'adding_WPSR_custom_meta_boxes', 10, 3 );
 add_action( 'admin_head', 'WPSR_check_default_permalink' );
 add_action( 'plugins_loaded', 'WPSR_upgrade' );
+free_SR_redirect_cache::hook_cache(); 
 
 register_activation_hook( __FILE__ , 'WPSR_upgrade' );
 register_uninstall_hook( __FILE__ , 'WPSR_uninstall' ); 
@@ -275,7 +276,7 @@ if($redirect_to!=''){
 	$wpdb->query($wpdb->prepare("delete from $table_name where postID=%d",$post_id));
 	}
 
-	$SR_redirect_cache = new clogica_SR_redirect_cache();
+	$SR_redirect_cache = new free_SR_redirect_cache();
 	$SR_redirect_cache->free_cache();
 }
 
@@ -378,7 +379,7 @@ function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
 
 	if(is_singular())
 	{
-		$SR_redirect_cache = new clogica_SR_redirect_cache();
+		$SR_redirect_cache = new free_SR_redirect_cache();
 		$SR_redirect_cache->add_redirect(get_the_ID(),1,$redirect_to,$redirect_type);
 	}
 
@@ -418,7 +419,7 @@ if($util->get_option_value('plugin_status')=='1'){
 		$permalink = substr($permalink,$first_slash,strlen($permalink)-$first_slash);
 	}
 	$post_cache_result="";
-	$SR_redirect_cache = new clogica_SR_redirect_cache();
+	$SR_redirect_cache = new free_SR_redirect_cache();
 
 	if(is_singular())
 	{
