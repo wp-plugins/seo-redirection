@@ -106,7 +106,7 @@ if($redirect_to_type =='Folder')
 		{
 			
 			$wpdb->query("update $table_name set redirect_from='$redirect_from',redirect_to='$redirect_to',redirect_type='$redirect_type',redirect_from_type='$redirect_from_type' ,redirect_from_folder_settings='$redirect_from_folder_settings',redirect_from_subfolders='$redirect_from_subfolders' ,redirect_to_type='$redirect_to_type' ,redirect_to_folder_settings='$redirect_to_folder_settings' ,regex='$regex',enabled='$enabled'  where ID='$edit' ");
-                        $SR_redirect_cache = new clogica_SR_redirect_cache();
+                        $SR_redirect_cache = new free_SR_redirect_cache();
 			$SR_redirect_cache->free_cache();
 		}
 	
