@@ -515,7 +515,19 @@ global $util;
 	if($util->get_option_value('plugin_status')!='1')
 		$util->info_option_msg('SEO Redirection is disabled now, you can go to option tab and enable it!');
 
-	echo '<div class="wrap"><h2>SEO Redirection</h2><br/>';
+	echo '<div class="wrap"><h2>SEO Redirection Free</h2><br/>';
+        
+        if(is_multisite())
+        {
+            echo '<p align="center"><b><font size="5"><font color="#FF0000">As in the plugin description, this version (free) does 
+not support Multisite WordPress installation, See the Premium Version at the 
+following link</font>:</font></b></p>
+<p align="center"><b>
+<a target="_blank" href="http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin">
+<font size="5">
+http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin</font></a></b></p>
+<p align="center">&nbsp;</p>';
+        }else{
 
 	$mytabs = new phptab();
 
@@ -527,6 +539,7 @@ global $util;
 	$mytabs->add_file_tab('goptions','Options','option_page_goptions.php','file');
 	$mytabs->add_file_tab('premium','<span style="color:brown;"><b>&#9658; Premium Features</b></span>','premium.php','file');
 	$mytabs->run();
+        }
     
 
 }
