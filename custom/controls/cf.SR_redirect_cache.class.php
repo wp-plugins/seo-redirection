@@ -26,6 +26,9 @@ if(!class_exists('free_SR_redirect_cache')){
             
             if($redirect != null && $redirect->redirect_to!=$source)
             {                
+                echo $redirect->redirect_to . '-' . $source;
+                exit(0);
+                
                 if($redirect->is_redirected==1)
                 {
                     if($redirect->redirect_type==301)

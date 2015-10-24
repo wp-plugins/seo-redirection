@@ -327,7 +327,7 @@ function WPSR_log_redirection_history($rID,$postID, $rfrom, $rto, $rtype,$rsrc)
 
 function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
 {
-	global $util;
+	global $util,$post;
 
         if($redirect_to == $redirect_from || !$util->is_valid_url($redirect_to))
         return 0;
@@ -380,7 +380,7 @@ function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
 	if(is_singular())
 	{
 		$SR_redirect_cache = new free_SR_redirect_cache();
-		$SR_redirect_cache->add_redirect(get_the_ID(),1,$redirect_to,$redirect_type);
+		$SR_redirect_cache->add_redirect($post->ID,1,$redirect_to,$redirect_type);
 	}
 
 	if($redirect_type=='301')
@@ -408,7 +408,8 @@ function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
 
 function WPSR_redirect()
 {
-global $wpdb,$table_prefix,$util ;
+global $wpdb,$post,$table_prefix,$util ;
+
 if($util->get_option_value('plugin_status')=='1'){
 
 	$table_name = $table_prefix . 'WP_SEO_Redirection';
@@ -423,7 +424,7 @@ if($util->get_option_value('plugin_status')=='1'){
 
 	if(is_singular())
 	{
-		$post_cache_result=$SR_redirect_cache->redirect_cached(get_the_ID());
+		$post_cache_result=$SR_redirect_cache->redirect_cached($post->ID);
 	}
 	if($post_cache_result == 'not_redirected')
 	{
@@ -449,7 +450,7 @@ if($util->get_option_value('plugin_status')=='1'){
 		$theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex='' and $permalink_options  ");
 
 			if($wpdb->num_rows>0 && $theurl->redirect_to!=''){
-				WPSR_make_redirect($theurl->redirect_to,$theurl->redirect_type,$permalink,$theurl);
+                            WPSR_make_redirect($theurl->redirect_to,$theurl->redirect_type,$permalink,$theurl);
 			}
 
 		$theurl = $wpdb->get_row(" select * from $table_name where enabled=1 and regex<>'' and $permalink_regex_options order by LENGTH(regex) desc ");
@@ -477,7 +478,7 @@ if($util->get_option_value('plugin_status')=='1'){
 
 	if(is_singular() && $post_cache_result == 'not_found')
 	{
-		$SR_redirect_cache->add_redirect(get_the_ID(),0,'',0);
+		$SR_redirect_cache->add_redirect($post->ID,0,'',0);
 	}
 
 }
