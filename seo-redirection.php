@@ -4,7 +4,7 @@ Plugin Name: SEO Redirection
 Plugin URI: http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin
 Description: By this plugin you can manage all your website redirection types easily.
 Author: Fakhri Alsadi
-Version: 3
+Version: 3.1
 Author URI: http://www.clogica.com
 */
 
@@ -19,7 +19,7 @@ if(!defined('WP_SEO_REDIRECTION_OPTIONS'))
 
 if(!defined('WP_SEO_REDIRECTION_VERSION'))
 {
-	define( 'WP_SEO_REDIRECTION_VERSION', '2.8');
+	define( 'WP_SEO_REDIRECTION_VERSION', '3.1'); 
 }
 
 $util= new clogica_util();
@@ -380,7 +380,7 @@ function WPSR_make_redirect($redirect_to,$redirect_type,$redirect_from,$obj='')
 	if(is_singular())
 	{
 		$SR_redirect_cache = new free_SR_redirect_cache();
-		$SR_redirect_cache->add_redirect($post->ID,1,$redirect_to,$redirect_type);
+		$SR_redirect_cache->add_redirect($post->ID,1,$redirect_from,$redirect_to,$redirect_type);
 	}
 
 	if($redirect_type=='301')
@@ -478,7 +478,7 @@ if($util->get_option_value('plugin_status')=='1'){
 
 	if(is_singular() && $post_cache_result == 'not_found')
 	{
-		$SR_redirect_cache->add_redirect($post->ID,0,'',0);
+		$SR_redirect_cache->add_redirect($post->ID,0,'','',0);
 	}
 
 }
@@ -652,6 +652,7 @@ function WPSR_install(){
     		CREATE TABLE IF NOT EXISTS `$table_name` (
               `ID` int(11) unsigned NOT NULL,
               `is_redirected` int(1) unsigned NOT NULL,
+              `redirect_from` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
               `redirect_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
               `redirect_type` int(3) unsigned NOT NULL DEFAULT 301,
               PRIMARY KEY (`ID`)
@@ -659,6 +660,18 @@ function WPSR_install(){
 			";
 		$wpdb->query($sql);
 	}
+        
+        if($wpdb->get_var(" SELECT count(*) as cnt FROM INFORMATION_SCHEMA.COLUMNS
+                   WHERE TABLE_NAME = '$table_name'
+			AND table_schema = DATABASE()
+                        AND COLUMN_NAME = 'redirect_from' ") == '0') {
+
+                $sql="
+                ALTER TABLE $table_name
+                ADD COLUMN `redirect_from` varchar(255) COLLATE utf8_unicode_ci NOT NULL;
+            ";
+                $wpdb->query($sql);
+            }
 
 
 	$table_name = $table_prefix . 'WP_SEO_404_links';

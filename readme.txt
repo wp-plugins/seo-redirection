@@ -114,6 +114,8 @@ Go to Discvered 404 Error Pages tab, choose any 404 error page and choose 'Redir
 * The Ad for the premium version has become in a separate tab not in all the plugin screens as it may disturb some people.
 * Some other fixes.
 = 2.9 =
-* Hot fixes regarding redirecting woocommerce products
+* Hot fixes for redirecting woocommerce products
 = 3 =
 * Hot fixes
+= 3.1 =
+* Redirect loops protection
