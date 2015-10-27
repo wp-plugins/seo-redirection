@@ -149,12 +149,6 @@ if(!class_exists('free_SR_redirect_cache')){
             global $wpdb,$table_prefix;
             $table_name = $table_prefix . 'WP_SEO_Cache';
             return $wpdb->get_var("select count(*) as cnt from  $table_name where 1;  ");
-        }
-        
-        /* ----------------------------------------------- */
-        public static function hook_cache()
-        {
-            add_action( 'save_post', array( __CLASS__, 'free_cache' ) );            
-        }
+        }        
 
     }}
