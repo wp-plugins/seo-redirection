@@ -103,19 +103,26 @@ Go to Discvered 404 Error Pages tab, choose any 404 error page and choose 'Redir
 
 == Changelog ==
 
-= 2.5 =
-* Using relative URLs instead of absolute URL's, This will usefull when changing the domian name.
-= 2.6 =
-* Some hot fixes.
-= 2.7 =
-* Some fixes.
+= 3.2 =
+* Hot fixes
+= 3.1 =
+* Redirect loops protection
+= 3 =
+* Hot fixes
+= 2.9 =
+* Hot fixes for redirecting woocommerce products.
 = 2.8 =
 * Redirect loop prevention.
 * The Ad for the premium version has become in a separate tab not in all the plugin screens as it may disturb some people.
 * Some other fixes.
-= 2.9 =
-* Hot fixes for redirecting woocommerce products
-= 3 =
-* Hot fixes
-= 3.1 =
-* Redirect loops protection
+= 2.7 =
+* Some fixes.
+= 2.6 =
+* Some hot fixes.
+= 2.5 =
+* Using relative URLs instead of absolute URL's, This will usefull when changing the domian name.
+
+
+
+
+
