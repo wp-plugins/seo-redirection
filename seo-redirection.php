@@ -519,7 +519,7 @@ global $util;
         
         if(is_multisite())
         {
-            echo '<p align="center"><b><font size="5"><font color="#FF0000">As in the plugin description from the first version, this version (free) does 
+            echo '<p align="center"><b><font size="5"><font color="#FF0000">As in the plugin description since the first version, this version (free) does 
 not support Multisite WordPress installation, if you have a redirects that alleady added, please contact us at http://www.clogica.com/contact-us to fix the issue for you, or see the Premium Version at the 
 following link</font>:</font></b></p>
 <p align="center"><b>
