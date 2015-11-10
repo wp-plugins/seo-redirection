@@ -106,6 +106,7 @@ function c_optimize_tables()
 	$table_name1 = $table_prefix . 'WP_SEO_404_links';
 	$table_name2 = $table_prefix . 'WP_SEO_Redirection';
 	$table_name3 = $table_prefix . 'WP_SEO_Redirection_LOG';
-	$wpdb->query(" OPTIMIZE TABLE  $table_name1,$table_name2,$table_name3 ");
+        $table_name4 = $table_prefix . 'WP_SEO_Cache';
+	$wpdb->query(" OPTIMIZE TABLE  $table_name1,$table_name2,$table_name3,$table_name4 ");
 }}
 
