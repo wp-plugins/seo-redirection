@@ -22,9 +22,8 @@ if(!defined('WP_SEO_REDIRECTION_VERSION'))
 	define( 'WP_SEO_REDIRECTION_VERSION', '3.2'); 
 }
 
-$util= new clogica_util();
-$util->set_option_gruop(WP_SEO_REDIRECTION_OPTIONS);
-$util->set_plugin_folder(basename(dirname(__FILE__)));
+$util= new clogica_util_1();
+$util->init(WP_SEO_REDIRECTION_OPTIONS, __FILE__);
 
 add_action('admin_enqueue_scripts', 'WPSR_header_code');
 add_action('admin_menu', 'WPSR_admin_menu');
@@ -547,9 +546,9 @@ http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin</font></
 
 function WPSR_upgrade(){
 
-	$util= new clogica_util();
-	$util->set_option_gruop(WP_SEO_REDIRECTION_OPTIONS);
-	$util->set_plugin_folder(basename(dirname(__FILE__)));
+	$util= new clogica_util_1();
+        $util->init(WP_SEO_REDIRECTION_OPTIONS, __FILE__);
+	
 		
 	if($util->get_option_value('plugin_version')!= WP_SEO_REDIRECTION_VERSION)
 	{

@@ -5,13 +5,29 @@ Date: 16-7-2010
 Contact: www.clogica.com   info@clogica.com    mobile: +972599322252
 */
 
-if(!class_exists('clogica_util')){
-class clogica_util{
+if(!class_exists('clogica_util_1')){
+class clogica_util_1{
 
-private $option_group_name='clogica_option_group';
-private $plugin_folder='plugin_folder_name'; 
-public $mytabs;
+private  $slug;
+private  $plugin_file;
+private  $plugin_path;
+private  $plugin_url;
 
+private  $option_group_name='clogica_option_group';
+private  $plugin_folder='plugin_folder_name'; 
+
+
+
+public function init ($option_gruop='clogica_option_group',$plugin_file='')
+{
+   $this->set_option_gruop($option_gruop); 
+   $this->set_plugin_folder(basename(dirname($plugin_file)));
+    $this->plugin_file = $plugin_file;
+    $this->slug =  basename($plugin_file);
+    $this->plugin_path = dirname($plugin_file) . '/';
+    $this->plugin_url =plugin_dir_url($plugin_file);
+   
+}
 public function get($key,$type='text')
 {
 
@@ -294,16 +310,33 @@ public function get_current_parameters($remove_parameter="")
 //---------------------------------------------------------------
 
 public function get_plugin_path($folder='')
-	{
-		return WP_PLUGIN_DIR . '/' .  $this->get_plugin_folder() . '/' . $folder;
-	}
-	
+{
+        return WP_PLUGIN_DIR . '/' .  $this->get_plugin_folder() . '/' . $folder;
+}
+
+/* get_plugin_path ---------------------------------------------  
+public function get_plugin_path()
+{
+   return $this->plugin_path;
+}*/
+
+/* get plugin slug -------------------------------------------- */
+public function get_plugin_slug()
+{
+    return $this->slug;
+}
+        
+ /* get plugin slug -------------------------------------------- */
+public function get_plugin_file()
+{
+    return $this->plugin_file;
+}
 //-----------------------------------------------------
 
 
 public function get_plugin_url($url='')
 {
-	return WP_PLUGIN_URL  . '/' .  $this->get_plugin_folder() . '/' . $url;
+	return $this->plugin_url;
 }
 
 

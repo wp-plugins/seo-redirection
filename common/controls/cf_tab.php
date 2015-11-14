@@ -59,7 +59,8 @@ var $ignore_parameters='';
 	
 //----------------------------------------------------------------------------	
 	function run()
-	{ global $util;
+	{ 
+            global $util;
 		
 		$tab_index= $util->get($this->parameter);
 		
