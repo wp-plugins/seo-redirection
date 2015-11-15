@@ -627,19 +627,26 @@ function WPSR_install(){
                   `postID` int(11) unsigned DEFAULT NULL,
                   PRIMARY KEY (`ID`),
                   UNIQUE KEY `redirect_from` (`redirect_from`)
-                );";
+                )ENGINE = MyISAM ;";
 			$wpdb->query($sql);
 		}else
 		{
-			// if the table exists
-			$redirects = $wpdb->get_results(" select redirect_from,redirect_to,ID from $table_name; ");
-			foreach ($redirects as $redirect)
-			{
-				$redirect_from=$util->make_relative_url($redirect->redirect_from);
-				$redirect_to=$util->make_relative_url($redirect->redirect_to);
-				$ID=$redirect->ID;
-				$wpdb->query(" update $table_name set  redirect_from='$redirect_from',redirect_to='$redirect_to'  where ID=$ID ");
-			}
+                    //check if Innodb convert it to myisam.                
+                    $status = $wpdb->get_row("SHOW TABLE STATUS WHERE Name = '$table_name'");
+                    if($status->Engine == 'InnoDB')
+                    {
+                        $wpdb->query("alter table $table_name engine = MyISAM;");
+                    }
+
+                    // if the table exists
+                    $redirects = $wpdb->get_results(" select redirect_from,redirect_to,ID from $table_name; ");
+                    foreach ($redirects as $redirect)
+                    {
+                            $redirect_from=$util->make_relative_url($redirect->redirect_from);
+                            $redirect_to=$util->make_relative_url($redirect->redirect_to);
+                            $ID=$redirect->ID;
+                            $wpdb->query(" update $table_name set  redirect_from='$redirect_from',redirect_to='$redirect_to'  where ID=$ID ");
+                    }
 
 		}
 
@@ -653,11 +660,20 @@ function WPSR_install(){
               `redirect_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
               `redirect_type` int(3) unsigned NOT NULL DEFAULT 301,
               PRIMARY KEY (`ID`)
-            ) ;
+            ) ENGINE = MyISAM ;
 			";
 		$wpdb->query($sql);
-	}
+	}else
+        {
+            //check if Innodb convert it to myisam.                
+            $status = $wpdb->get_row("SHOW TABLE STATUS WHERE Name = '$table_name'");
+            if($status->Engine == 'InnoDB')
+            {
+                $wpdb->query("alter table $table_name engine = MyISAM;");
+            }
+        }
         
+               
         if($wpdb->get_var(" SELECT count(*) as cnt FROM INFORMATION_SCHEMA.COLUMNS
                    WHERE TABLE_NAME = '$table_name'
 			AND table_schema = DATABASE()
@@ -685,10 +701,18 @@ function WPSR_install(){
               `browser` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
               PRIMARY KEY (`ID`),
               UNIQUE KEY `link` (`link`)
-            ) ;
+            ) ENGINE = MyISAM ;
 			";
 			$wpdb->query($sql);
-		}
+		}else
+                {
+                     //check if Innodb convert it to myisam.                
+                    $status = $wpdb->get_row("SHOW TABLE STATUS WHERE Name = '$table_name'");
+                    if($status->Engine == 'InnoDB')
+                    {
+                        $wpdb->query("alter table $table_name engine = MyISAM;");
+                    }
+                }
 		
 		
 		$table_name = $table_prefix . 'WP_SEO_Redirection_LOG';
@@ -709,11 +733,19 @@ function WPSR_install(){
               `os` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
               `browser` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
               PRIMARY KEY (`ID`)
-            ) ;
+            ) ENGINE = MyISAM ;
 			";
 			
 			$wpdb->query($sql);
-		}
+		}else
+                {
+                    //check if Innodb convert it to myisam.                
+                    $status = $wpdb->get_row("SHOW TABLE STATUS WHERE Name = '$table_name'");
+                    if($status->Engine == 'InnoDB')
+                    {
+                        $wpdb->query("alter table $table_name engine = MyISAM;");
+                    }
+                }
 		
 }
 
