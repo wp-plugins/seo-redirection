@@ -559,11 +559,10 @@ function WPSR_upgrade(){
 
 //-----------------------------------------------------
 function WPSR_install(){
-		global $wpdb,$table_prefix ;
+        global $wpdb,$table_prefix ;
 		
-		$util= new clogica_util();
-		$util->set_option_gruop(WP_SEO_REDIRECTION_OPTIONS);
-		$util->set_plugin_folder(basename(dirname(__FILE__)));
+        $util= new clogica_util_1();
+        $util->init(WP_SEO_REDIRECTION_OPTIONS, __FILE__);
 	
 	$options=get_option(WP_SEO_REDIRECTION_OPTIONS);
 	if(!is_array($options))
