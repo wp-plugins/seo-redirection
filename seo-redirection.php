@@ -4,7 +4,7 @@ Plugin Name: SEO Redirection
 Plugin URI: http://www.clogica.com/product/seo-redirection-premium-wordpress-plugin
 Description: By this plugin you can manage all your website redirection types easily.
 Author: Fakhri Alsadi
-Version: 3.3
+Version: 3.4
 Author URI: http://www.clogica.com
 */
 
@@ -756,10 +756,8 @@ function WPSR_install(){
 function WPSR_uninstall(){
     global $wpdb,$table_prefix ;
     
-    $util= new clogica_util();
-    $util->set_option_gruop('wp-seo-redirection-group');
-    $util->set_plugin_folder(basename(dirname(__FILE__)));
-
+    $util= new clogica_util_1();
+    $util->init(WP_SEO_REDIRECTION_OPTIONS, __FILE__);
     
     if($util->get_option_value('keep_data')!='1'){
         

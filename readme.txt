@@ -103,6 +103,8 @@ Go to Discvered 404 Error Pages tab, choose any 404 error page and choose 'Redir
 
 == Changelog ==
 
+= 3.4 =
+* Fixing error appears when deleting the plugin.
 = 3.3 =
 * Hot fixes
 = 3.2 =
